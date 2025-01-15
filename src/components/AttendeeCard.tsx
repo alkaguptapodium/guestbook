@@ -31,6 +31,8 @@ export const AttendeeCard = ({
   email,
   isMemberView,
 }: AttendeeCardProps) => {
+  console.log('Rendering AttendeeCard with imageUrl:', imageUrl); // Debug log
+
   return (
     <Card className="overflow-hidden animate-fadeIn">
       <div className="aspect-square overflow-hidden bg-gray-100">
@@ -39,8 +41,12 @@ export const AttendeeCard = ({
             src={imageUrl}
             alt={`Profile photo of ${name}`}
             className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
+            onError={(e) => {
+              console.log('Image failed to load:', imageUrl); // Debug log
+              e.currentTarget.style.display = 'none';
+            }}
           />
-          <AvatarFallback className="w-full h-full text-4xl font-semibold bg-gradient-to-br from-gray-100 to-gray-200">
+          <AvatarFallback className="w-full h-full text-5xl font-bold bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
             {getInitials(name)}
           </AvatarFallback>
         </Avatar>
