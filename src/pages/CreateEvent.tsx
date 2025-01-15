@@ -9,11 +9,13 @@ import StarterKit from '@tiptap/starter-kit'
 import Link from '@tiptap/extension-link'
 import Underline from '@tiptap/extension-underline'
 import { RichTextEditor } from "@/components/RichTextEditor";
+import { supabase } from "@/integrations/supabase/client";
+import Papa from 'papaparse';
 
 const CreateEvent = () => {
   const [eventName, setEventName] = useState("");
   const [eventImage, setEventImage] = useState<File | null>(null);
-  const [sheetUrl, setSheetUrl] = useState("");
+  const [csvFile, setCsvFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -35,7 +37,7 @@ const CreateEvent = () => {
         class: 'outline-none',
       },
     },
-  })
+  });
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -43,22 +45,95 @@ const CreateEvent = () => {
     }
   };
 
+  const handleCsvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setCsvFile(e.target.files[0]);
+    }
+  };
+
+  const processCSV = (file: File): Promise<Array<{ name: string; headline?: string; linkedin_url?: string; type: string }>> => {
+    return new Promise((resolve, reject) => {
+      Papa.parse(file, {
+        header: true,
+        complete: (results) => {
+          const attendees = results.data.map((row: any) => ({
+            name: row.Name,
+            headline: row.Headline,
+            linkedin_url: row['LinkedIn Link'],
+            type: row.Type,
+          }));
+          resolve(attendees);
+        },
+        error: (error) => {
+          reject(error);
+        }
+      });
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      // This is where we'll add the integration with Google Sheets and backend
-      // after Supabase is connected
+      if (!eventImage || !csvFile) {
+        throw new Error("Please provide both an event image and CSV file");
+      }
+
+      // Upload event image
+      const imageFile = eventImage;
+      const imageExt = imageFile.name.split('.').pop();
+      const imagePath = `${crypto.randomUUID()}.${imageExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('events')
+        .upload(imagePath, imageFile);
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL for the uploaded image
+      const { data: { publicUrl: imageUrl } } = supabase.storage
+        .from('events')
+        .getPublicUrl(imagePath);
+
+      // Create event
+      const { data: eventData, error: eventError } = await supabase
+        .from('events')
+        .insert({
+          name: eventName,
+          image_url: imageUrl,
+          description: editor?.getHTML() || '',
+          sheet_url: '', // We keep this for backwards compatibility
+        })
+        .select()
+        .single();
+
+      if (eventError) throw eventError;
+
+      // Process CSV and create attendees
+      const attendees = await processCSV(csvFile);
+      const { error: attendeesError } = await supabase
+        .from('attendees')
+        .insert(
+          attendees.map(attendee => ({
+            ...attendee,
+            event_id: eventData.id
+          }))
+        );
+
+      if (attendeesError) throw attendeesError;
+
       toast({
-        title: "Backend integration required",
-        description: "Please connect Supabase to enable form submission.",
+        title: "Success",
+        description: "Event created successfully!",
       });
-    } catch (error) {
+
+      navigate("/");
+    } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Something went wrong. Please try again.",
+        description: error.message || "Something went wrong. Please try again.",
       });
     } finally {
       setIsLoading(false);
@@ -104,16 +179,21 @@ const CreateEvent = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="sheetUrl">Google Sheet URL</Label>
+            <Label htmlFor="csvFile">Attendees CSV File</Label>
             <Input
-              id="sheetUrl"
-              value={sheetUrl}
-              onChange={(e) => setSheetUrl(e.target.value)}
-              placeholder="https://docs.google.com/spreadsheets/d/..."
+              id="csvFile"
+              type="file"
+              accept=".csv"
+              onChange={handleCsvChange}
               required
             />
+            {csvFile && (
+              <p className="text-sm text-muted-foreground">
+                Selected: {csvFile.name}
+              </p>
+            )}
             <p className="text-sm text-muted-foreground">
-              Sheet should contain columns: Name, Headline, LinkedIn Link, Type (Guest/Host), Image URL (Google Drive sharing link)
+              CSV should contain columns: Name, Headline, LinkedIn Link, Type (Guest/Host)
             </p>
           </div>
 
