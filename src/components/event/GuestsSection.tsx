@@ -10,10 +10,10 @@ interface GuestsSectionProps {
 
 export const GuestsSection = ({ guests }: GuestsSectionProps) => {
   console.log('Rendering GuestsSection with guests:', guests);
-
-  // Filter attendees to only show guests with exact match for "Guest"
+  
+  // Filter attendees to show only guests with exact match for "Guest"
   const guestAttendees = guests.filter(attendee => {
-    const isGuest = attendee.type.trim() === 'Guest';
+    const isGuest = attendee.type === 'Guest';
     console.log(`Checking attendee ${attendee.name}: type=${attendee.type}, isGuest=${isGuest}`);
     return isGuest;
   });
@@ -26,7 +26,7 @@ export const GuestsSection = ({ guests }: GuestsSectionProps) => {
   return (
     <section>
       <div className="flex items-center gap-2 mb-8">
-        <Users className="w-6 h-6 text-podium-dark" />
+        <Users className="w-6 h-6 text-podium-gold" />
         <h2 className="font-['Inter'] text-3xl font-semibold uppercase">Guests</h2>
       </div>
       {sortedGuests.length === 0 ? (
