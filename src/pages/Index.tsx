@@ -1,6 +1,7 @@
+import { Crown, Users } from "lucide-react";
 import { EventHeader } from "@/components/EventHeader";
 import { AttendeeCard } from "@/components/AttendeeCard";
-import { Users, Crown } from "lucide-react";
+import { Navigation } from "@/components/Navigation";
 
 // Mock data - in a real app, this would come from your backend
 const eventData = {
@@ -41,6 +42,7 @@ const eventData = {
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Navigation />
       <EventHeader
         title={eventData.title}
         date={eventData.date}
@@ -56,7 +58,7 @@ const Index = () => {
               <Crown className="w-6 h-6 text-podium-gold" />
               <h2 className="font-playfair text-3xl font-semibold">Hosts</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
               {eventData.hosts.map((host, index) => (
                 <AttendeeCard
                   key={index}
