@@ -51,7 +51,7 @@ const CreateEvent = () => {
     }
   };
 
-  const processCSV = (file: File): Promise<Array<{ name: string; headline?: string; linkedin_url?: string; type: string }>> => {
+  const processCSV = (file: File): Promise<Array<{ name: string; headline?: string; linkedin_url?: string; type: string; image_url: string }>> => {
     return new Promise((resolve, reject) => {
       Papa.parse(file, {
         header: true,
@@ -61,6 +61,7 @@ const CreateEvent = () => {
             headline: row.Headline,
             linkedin_url: row['LinkedIn Link'],
             type: row.Type,
+            image_url: row['Profile Picture'], // New field for Google Drive image URL
           }));
           resolve(attendees);
         },
@@ -193,7 +194,7 @@ const CreateEvent = () => {
               </p>
             )}
             <p className="text-sm text-muted-foreground">
-              CSV should contain columns: Name, Headline, LinkedIn Link, Type (Guest/Host)
+              CSV should contain columns: Name, Headline, LinkedIn Link, Type (Guest/Host), Profile Picture (Google Drive URL)
             </p>
           </div>
 
