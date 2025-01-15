@@ -13,43 +13,6 @@ interface AttendeeCardProps {
   isMemberView: boolean;
 }
 
-const convertImageUrl = (url: string): string => {
-  console.log('Converting URL:', url);
-  
-  if (!url || url === '') {
-    console.log('Empty or invalid URL, using placeholder');
-    return "/placeholder.svg";
-  }
-  
-  // Check if it's a Google Drive URL
-  if (url.includes("drive.google.com")) {
-    console.log('Converting Google Drive URL');
-    // Extract the file ID
-    const fileId = url.match(/[-\w]{25,}/);
-    if (fileId) {
-      // Use the direct download URL format
-      const convertedUrl = `https://drive.google.com/uc?export=download&id=${fileId[0]}`;
-      console.log('Converted Google Drive URL to:', convertedUrl);
-      return convertedUrl;
-    }
-  }
-  
-  // If it's a relative URL (starts with /)
-  if (url.startsWith('/')) {
-    console.log('Using relative URL:', url);
-    return url;
-  }
-  
-  // If it's already a full URL
-  if (url.startsWith('http')) {
-    console.log('Using full URL:', url);
-    return url;
-  }
-  
-  console.log('URL format not recognized, using placeholder');
-  return "/placeholder.svg";
-};
-
 const getInitials = (name: string): string => {
   return name
     .split(' ')
@@ -72,21 +35,6 @@ export const AttendeeCard = ({
     <Card className="overflow-hidden animate-fadeIn">
       <div className="aspect-square overflow-hidden bg-gray-100">
         <Avatar className="w-full h-full rounded-none">
-          <AvatarImage
-            src={convertImageUrl(imageUrl)}
-            alt={`Profile photo of ${name}`}
-            className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
-            onError={(e) => {
-              console.error('Image failed to load:', {
-                originalUrl: imageUrl,
-                convertedUrl: (e.target as HTMLImageElement).src,
-                name: name,
-                error: e
-              });
-              // Set fallback image on error
-              (e.target as HTMLImageElement).src = "/placeholder.svg";
-            }}
-          />
           <AvatarFallback className="w-full h-full text-4xl font-semibold bg-gradient-to-br from-gray-100 to-gray-200">
             {getInitials(name)}
           </AvatarFallback>
