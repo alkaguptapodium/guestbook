@@ -13,27 +13,38 @@ interface AttendeeCardProps {
 }
 
 const convertImageUrl = (url: string): string => {
-  if (!url) return "/placeholder.svg";
+  console.log('Converting URL:', url);
+  
+  if (!url) {
+    console.log('Empty URL, using placeholder');
+    return "/placeholder.svg";
+  }
   
   // Check if it's a Google Drive URL
   if (url.includes("drive.google.com")) {
+    console.log('Converting Google Drive URL');
     // Extract the file ID
     const fileId = url.match(/[-\w]{25,}/);
     if (fileId) {
-      return `https://drive.google.com/uc?export=view&id=${fileId[0]}`;
+      const convertedUrl = `https://drive.google.com/uc?export=view&id=${fileId[0]}`;
+      console.log('Converted to:', convertedUrl);
+      return convertedUrl;
     }
   }
   
   // If it's a relative URL (starts with /)
   if (url.startsWith('/')) {
+    console.log('Using relative URL as is');
     return url;
   }
   
   // If it's already a full URL
   if (url.startsWith('http')) {
+    console.log('Using full URL as is');
     return url;
   }
   
+  console.log('Using original URL:', url);
   return url;
 };
 
@@ -54,7 +65,12 @@ export const AttendeeCard = ({
           alt={name}
           className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
           onError={(e) => {
-            console.log('Image failed to load:', imageUrl);
+            console.error('Image failed to load:', {
+              originalUrl: imageUrl,
+              convertedUrl: (e.target as HTMLImageElement).src,
+              name: name,
+              error: e
+            });
             const target = e.target as HTMLImageElement;
             target.src = "/placeholder.svg";
           }}
