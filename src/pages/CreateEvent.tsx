@@ -66,12 +66,12 @@ const CreateEvent = () => {
         header: true,
         complete: (results) => {
           const attendees = results.data.map((row: any) => ({
-            name: row.Name,
-            headline: row.Headline,
-            linkedin_url: row['LinkedIn Link'],
-            type: row.Type,
-            image_url: row['Profile Picture'], // New field for Google Drive image URL
-          }));
+            name: row.Name || '',
+            headline: row.Headline || null,
+            linkedin_url: row['LinkedIn Link'] || null,
+            type: row.Type || 'Guest', // Set default type to 'Guest' if not provided
+            image_url: row['Profile Picture'] || null,
+          })).filter(attendee => attendee.name); // Filter out rows without names
           resolve(attendees);
         },
         error: (error) => {

@@ -15,6 +15,7 @@ export type Database = {
           event_id: string | null
           headline: string | null
           id: string
+          image_url: string | null
           linkedin_url: string | null
           name: string
           type: string
@@ -24,6 +25,7 @@ export type Database = {
           event_id?: string | null
           headline?: string | null
           id?: string
+          image_url?: string | null
           linkedin_url?: string | null
           name: string
           type: string
@@ -33,6 +35,7 @@ export type Database = {
           event_id?: string | null
           headline?: string | null
           id?: string
+          image_url?: string | null
           linkedin_url?: string | null
           name?: string
           type?: string
