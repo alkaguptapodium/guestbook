@@ -58,6 +58,7 @@ export type Database = {
           image_url: string | null
           name: string
           sheet_url: string
+          slug: string
         }
         Insert: {
           created_at?: string
@@ -66,6 +67,7 @@ export type Database = {
           image_url?: string | null
           name: string
           sheet_url: string
+          slug: string
         }
         Update: {
           created_at?: string
@@ -74,6 +76,7 @@ export type Database = {
           image_url?: string | null
           name?: string
           sheet_url?: string
+          slug?: string
         }
         Relationships: []
       }
