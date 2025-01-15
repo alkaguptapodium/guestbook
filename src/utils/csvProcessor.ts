@@ -28,6 +28,8 @@ async function processGoogleDriveImage(driveUrl: string): Promise<string | null>
 }
 
 function normalizeType(type: string): 'Host' | 'Guest' {
+  if (!type) return 'Guest';
+  
   // Remove extra spaces and convert to lowercase for comparison
   const normalizedType = type.trim().toLowerCase();
   
@@ -40,12 +42,7 @@ function normalizeType(type: string): 'Host' | 'Guest' {
   });
   
   // Check if the normalized string includes 'host' anywhere
-  if (normalizedType.includes('host')) {
-    return 'Host';
-  }
-  
-  // Default to 'Guest' for any other value
-  return 'Guest';
+  return normalizedType.includes('host') ? 'Host' : 'Guest';
 }
 
 export const processCSV = async (file: File): Promise<Attendee[]> => {
@@ -60,11 +57,15 @@ export const processCSV = async (file: File): Promise<Attendee[]> => {
             // Log the raw row data
             console.log('Processing CSV row:', row);
             
+            // Check for both possible column names for type
+            const typeValue = row['Type (Guest/Host)'] || row['Type'] || "";
+            console.log('Type value from CSV:', typeValue);
+            
             // Normalize the type field
-            const normalizedType = normalizeType(row.Type || "");
+            const normalizedType = normalizeType(typeValue);
             
             console.log(`Processing attendee ${row.Name}:`, {
-              originalType: row.Type,
+              originalType: typeValue,
               normalizedType: normalizedType
             });
             
