@@ -112,18 +112,11 @@ const EventView = () => {
     );
   }
 
-  // Explicitly check for host type, including variations
-  const isHostType = (type: string | null): boolean => {
-    if (!type) return false;
-    const normalizedType = type.toLowerCase().trim();
-    return ['host', 'hosts', 'Host', 'Hosts'].includes(normalizedType);
-  };
+  const hosts = attendees?.filter(attendee => attendee.type === 'Host') || [];
+  const guests = attendees?.filter(attendee => attendee.type === 'Guest') || [];
 
-  const hosts = attendees?.filter(attendee => isHostType(attendee.type)) || [];
-  const guests = attendees?.filter(attendee => !isHostType(attendee.type)) || [];
-
-  console.log('Hosts:', hosts); // Debug log to verify hosts are being identified
-  console.log('Guests:', guests); // Debug log to verify guests are being identified
+  console.log('Hosts:', hosts); // Debug log
+  console.log('Guests:', guests); // Debug log
 
   return (
     <div className="min-h-screen bg-[#fdfdf7]">

@@ -9,8 +9,15 @@ interface HostsSectionProps {
 }
 
 export const HostsSection = ({ hosts }: HostsSectionProps) => {
+  console.log('Rendering HostsSection with hosts:', hosts); // Debug log
+
   // Sort hosts alphabetically by name
   const sortedHosts = [...hosts].sort((a, b) => a.name.localeCompare(b.name));
+
+  if (sortedHosts.length === 0) {
+    console.log('No hosts found'); // Debug log
+    return null;
+  }
 
   return (
     <section>

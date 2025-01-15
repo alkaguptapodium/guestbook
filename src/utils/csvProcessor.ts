@@ -5,11 +5,9 @@ interface Attendee {
   name: string;
   headline?: string | null;
   linkedin_url?: string | null;
-  type: string;
+  type: 'Host' | 'Guest';
   image_url?: string | null;
 }
-
-const VALID_TYPES = ["Guest", "Host"];
 
 async function processGoogleDriveImage(driveUrl: string): Promise<string | null> {
   try {
@@ -36,9 +34,9 @@ export const processCSV = async (file: File): Promise<Attendee[]> => {
       complete: async (results) => {
         try {
           const attendeesPromises = results.data.map(async (row: any) => {
-            // Normalize the type field
+            // Normalize the type field to either 'Host' or 'Guest'
             const rawType = row.Type || "Guest";
-            const normalizedType = VALID_TYPES.includes(rawType) ? rawType : "Guest";
+            const normalizedType = rawType.toLowerCase().includes('host') ? 'Host' : 'Guest';
             
             // Process Google Drive image if present
             let imageUrl = null;
