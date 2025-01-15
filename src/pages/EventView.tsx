@@ -6,6 +6,7 @@ import { AttendeeCard } from "@/components/AttendeeCard";
 import { Navigation } from "@/components/Navigation";
 import { Crown, Users, Image } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 const EventView = () => {
   const { id } = useParams();
@@ -42,6 +43,17 @@ const EventView = () => {
     },
     enabled: !!id,
   });
+
+  // Update document title when event data loads
+  useEffect(() => {
+    if (event?.name) {
+      document.title = event.name;
+    }
+    // Reset title when component unmounts
+    return () => {
+      document.title = "Podium";
+    };
+  }, [event?.name]);
 
   const hosts = attendees?.filter((attendee) => attendee.type === "Host") || [];
   const guests = attendees?.filter((attendee) => attendee.type === "Guest") || [];
