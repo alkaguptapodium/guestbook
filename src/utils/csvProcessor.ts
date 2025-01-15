@@ -1,4 +1,5 @@
 import Papa from "papaparse";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Attendee {
   name: string;
