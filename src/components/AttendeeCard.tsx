@@ -51,23 +51,21 @@ export const AttendeeCard = ({
           </AvatarFallback>
         </Avatar>
       </div>
-      <div className="p-4">
+      <div className="p-4 space-y-2">
         <h3 className="font-playfair text-xl font-semibold">{name}</h3>
-        <p className="text-sm text-muted-foreground mt-1">
+        <p className="text-sm text-muted-foreground">
           {role} {company && `at ${company}`}
         </p>
-        {isMemberView && linkedIn && (
-          <div className="mt-4 flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-full"
-              onClick={() => window.open(linkedIn, "_blank")}
-            >
-              <Linkedin className="w-4 h-4 mr-2" />
-              Connect
-            </Button>
-          </div>
+        {linkedIn && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="w-full bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90 border-0"
+            onClick={() => window.open(linkedIn, "_blank")}
+          >
+            <Linkedin className="w-4 h-4 mr-2" />
+            Connect on LinkedIn
+          </Button>
         )}
       </div>
     </Card>
