@@ -24,7 +24,10 @@ const CreateEvent = () => {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        bulletList: true,
+        bulletList: {
+          keepMarks: true,
+          keepAttributes: false
+        },
       }),
       Link.configure({
         openOnClick: false,
