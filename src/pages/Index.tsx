@@ -7,7 +7,7 @@ import { Navigation } from "@/components/Navigation";
 const eventData = {
   title: "Future of Tech Leadership",
   date: "March 15, 2024",
-  location: "San Francisco, CA",
+  location: "",
   imageUrl: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80",
   hosts: [
     {
@@ -69,7 +69,7 @@ const Index = () => {
             </div>
           </section>
 
-          {/* Guests Section (formerly Participants) */}
+          {/* Guests Section */}
           <section>
             <div className="flex items-center gap-2 mb-8">
               <Users className="w-6 h-6 text-podium-dark" />
