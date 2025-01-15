@@ -25,6 +25,7 @@ export const HostsSection = ({ hosts }: HostsSectionProps) => {
             imageUrl={host.image_url || "/placeholder.svg"}
             linkedIn={host.linkedin_url}
             isMemberView={false}
+            type={host.type} // Added this line to pass the type
           />
         ))}
       </div>

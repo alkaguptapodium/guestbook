@@ -10,6 +10,7 @@ interface AttendeeCardProps {
   linkedIn?: string;
   email?: string;
   isMemberView: boolean;
+  type?: string; // Added this line to accept the type prop
 }
 
 const getInitials = (name: string): string => {
@@ -29,8 +30,10 @@ export const AttendeeCard = ({
   linkedIn,
   email,
   isMemberView,
+  type, // Added this to destructure the type prop
 }: AttendeeCardProps) => {
   console.log('Rendering AttendeeCard with imageUrl:', imageUrl); // Debug log
+  console.log('Rendering AttendeeCard with type:', type); // Added debug log for type
 
   return (
     <Card className="overflow-hidden animate-fadeIn">
