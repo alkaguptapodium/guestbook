@@ -27,6 +27,26 @@ async function processGoogleDriveImage(driveUrl: string): Promise<string | null>
   }
 }
 
+function normalizeType(type: string): 'Host' | 'Guest' {
+  // Remove extra spaces and convert to lowercase for comparison
+  const normalizedType = type.trim().toLowerCase();
+  
+  // Log the type normalization process
+  console.log('Normalizing type:', {
+    original: type,
+    trimmed: type.trim(),
+    lowercase: normalizedType,
+  });
+  
+  // Check if the normalized string includes 'host' anywhere
+  if (normalizedType.includes('host')) {
+    return 'Host';
+  }
+  
+  // Default to 'Guest' for any other value
+  return 'Guest';
+}
+
 export const processCSV = async (file: File): Promise<Attendee[]> => {
   return new Promise((resolve, reject) => {
     Papa.parse(file, {
@@ -34,12 +54,13 @@ export const processCSV = async (file: File): Promise<Attendee[]> => {
       complete: async (results) => {
         try {
           const attendeesPromises = results.data.map(async (row: any) => {
-            // Normalize the type field to exactly 'Host' or 'Guest'
-            const rawType = (row.Type || "").trim();
-            // Standardize to exactly 'Host' or 'Guest' with proper casing
-            const normalizedType = rawType.toLowerCase().includes('host') ? 'Host' : 'Guest';
+            // Normalize the type field
+            const normalizedType = normalizeType(row.Type || "");
             
-            console.log(`Processing CSV row for ${row.Name} with type: ${normalizedType}`); // Debug log
+            console.log(`Processing CSV row for ${row.Name}:`, {
+              originalType: row.Type,
+              normalizedType: normalizedType
+            });
             
             // Process Google Drive image if present
             let imageUrl = null;
