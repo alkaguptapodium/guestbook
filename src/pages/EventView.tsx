@@ -2,11 +2,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { EventHeader } from "@/components/EventHeader";
-import { AttendeeCard } from "@/components/AttendeeCard";
 import { Navigation } from "@/components/Navigation";
-import { Crown, Users } from "lucide-react";
 import { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { HostsSection } from "@/components/event/HostsSection";
+import { GuestsSection } from "@/components/event/GuestsSection";
 
 const EventView = () => {
   const { slug } = useParams();
@@ -76,7 +76,6 @@ const EventView = () => {
     if (event?.name) {
       document.title = event.name;
     }
-    // Reset title when component unmounts
     return () => {
       document.title = "Podium";
     };
@@ -93,7 +92,6 @@ const EventView = () => {
     }
   }, [eventError, attendeesError, toast]);
 
-  // Show loading state or error
   if (!event && !eventError) {
     return (
       <div className="min-h-screen bg-[#fdfdf7]">
@@ -131,49 +129,9 @@ const EventView = () => {
       
       <main className="container px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fadeIn">
-          {/* Right Column - Attendees */}
           <div className="lg:col-span-3 space-y-12">
-            {/* Hosts Section */}
-            <section>
-              <div className="flex items-center gap-2 mb-6">
-                <Crown className="w-6 h-6 text-podium-gold" />
-                <h2 className="font-['Inter'] text-2xl font-semibold uppercase">Hosts</h2>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {hosts?.map((host) => (
-                  <AttendeeCard
-                    key={host.id}
-                    name={host.name}
-                    role={host.headline || "Host"}
-                    company=""
-                    imageUrl={host.image_url || "/placeholder.svg"}
-                    linkedIn={host.linkedin_url}
-                    isMemberView={false}
-                  />
-                ))}
-              </div>
-            </section>
-
-            {/* Guests Section */}
-            <section>
-              <div className="flex items-center gap-2 mb-6">
-                <Users className="w-6 h-6 text-podium-dark" />
-                <h2 className="font-['Inter'] text-2xl font-semibold uppercase">Guests</h2>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {guests?.map((guest) => (
-                  <AttendeeCard
-                    key={guest.id}
-                    name={guest.name}
-                    role={guest.headline || "Guest"}
-                    company=""
-                    imageUrl={guest.image_url || "/placeholder.svg"}
-                    linkedIn={guest.linkedin_url}
-                    isMemberView={false}
-                  />
-                ))}
-              </div>
-            </section>
+            <HostsSection hosts={hosts} />
+            <GuestsSection guests={guests} />
           </div>
         </div>
       </main>
