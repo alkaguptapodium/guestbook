@@ -1,6 +1,5 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Linkedin } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface AttendeeCardProps {
@@ -62,7 +61,7 @@ export const AttendeeCard = ({
               onClick={() => window.open(linkedIn, "_blank")}
             >
               <img 
-                src="/lovable-uploads/bea47329-c113-4b46-9ecd-ee4e086f4ee2.png" 
+                src="/lovable-uploads/abfe3634-5777-4b33-ba05-1b740c1bf753.png" 
                 alt="LinkedIn"
                 className="w-full h-full"
               />
