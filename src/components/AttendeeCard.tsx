@@ -12,6 +12,20 @@ interface AttendeeCardProps {
   isMemberView: boolean;
 }
 
+const convertGoogleDriveUrl = (url: string): string => {
+  if (!url) return "/placeholder.svg";
+  
+  // Check if it's a Google Drive URL
+  if (url.includes("drive.google.com")) {
+    // Extract the file ID
+    const fileId = url.match(/[-\w]{25,}/);
+    if (fileId) {
+      return `https://drive.google.com/uc?export=view&id=${fileId[0]}`;
+    }
+  }
+  return url;
+};
+
 export const AttendeeCard = ({
   name,
   role,
@@ -25,9 +39,13 @@ export const AttendeeCard = ({
     <Card className="overflow-hidden animate-fadeIn">
       <div className="aspect-square overflow-hidden">
         <img
-          src={imageUrl}
+          src={convertGoogleDriveUrl(imageUrl)}
           alt={name}
           className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = "/placeholder.svg";
+          }}
         />
       </div>
       <div className="p-4">
