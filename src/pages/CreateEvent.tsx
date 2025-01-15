@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
-import { useEditor, EditorContent } from '@tiptap/react'
+import { useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Link from '@tiptap/extension-link'
 import Underline from '@tiptap/extension-underline'
@@ -30,6 +30,11 @@ const CreateEvent = () => {
       Underline,
     ],
     content: '',
+    editorProps: {
+      attributes: {
+        class: 'outline-none',
+      },
+    },
   })
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,7 +101,6 @@ const CreateEvent = () => {
           <div className="space-y-2">
             <Label>Event Description</Label>
             <RichTextEditor editor={editor} />
-            <EditorContent editor={editor} className="hidden" />
           </div>
 
           <div className="space-y-2">

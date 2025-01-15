@@ -53,7 +53,7 @@ export function RichTextEditor({ editor }: RichTextEditorProps) {
         <Toggle
           size="sm"
           pressed={editor.isActive('underline')}
-          onPressedChange={() => editor.chain().focus().toggleUnderline().run()}
+          onPressedChange={() => editor.commands.toggleUnderline()}
         >
           <Underline className="h-4 w-4" />
         </Toggle>
@@ -79,8 +79,10 @@ export function RichTextEditor({ editor }: RichTextEditorProps) {
           </PopoverContent>
         </Popover>
       </div>
-      <div className="p-3 min-h-[150px]" onClick={() => editor.chain().focus()}>
-        {editor.view.dom}
+      <div className="prose prose-sm max-w-none p-3 min-h-[150px]">
+        <div onClick={() => editor.chain().focus()} className="outline-none">
+          {editor.options.element}
+        </div>
       </div>
     </div>
   )
