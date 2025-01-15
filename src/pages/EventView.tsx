@@ -35,15 +35,20 @@ const EventView = () => {
         .from("events")
         .select("*")
         .eq("id", id)
-        .single();
+        .maybeSingle();
 
       if (error) {
         console.error('Error fetching event:', error);
         throw error;
       }
+      
+      if (!data) {
+        throw new Error("Event not found");
+      }
+      
       return data;
     },
-    enabled: !!id, // Only run query if we have an ID
+    enabled: Boolean(id), // Only run query if we have an ID
   });
 
   const { data: attendees, isError: attendeesError } = useQuery({
@@ -63,7 +68,7 @@ const EventView = () => {
       }
       return data;
     },
-    enabled: !!id, // Only run query if we have an ID
+    enabled: Boolean(id), // Only run query if we have an ID
   });
 
   // Update document title when event data loads
