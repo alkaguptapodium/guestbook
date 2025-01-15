@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
@@ -54,28 +54,31 @@ const CreateEvent = () => {
         throw new Error("Please provide both an event image and CSV file");
       }
 
-      // Upload event image
-      const imageFile = eventImage;
-      const imageExt = imageFile.name.split(".").pop();
-      const imagePath = `${crypto.randomUUID()}.${imageExt}`;
+      // Upload event image to Supabase Storage
+      const timestamp = new Date().getTime();
+      const fileExt = eventImage.name.split('.').pop();
+      const filePath = `${timestamp}_${crypto.randomUUID()}.${fileExt}`;
 
-      const { error: uploadError } = await supabase.storage
-        .from("events")
-        .upload(imagePath, imageFile);
+      const { error: uploadError, data } = await supabase.storage
+        .from('events')
+        .upload(filePath, eventImage, {
+          cacheControl: '3600',
+          upsert: false
+        });
 
       if (uploadError) throw uploadError;
 
-      // Get public URL for the uploaded image
-      const {
-        data: { publicUrl: imageUrl },
-      } = supabase.storage.from("events").getPublicUrl(imagePath);
+      // Get the public URL for the uploaded image
+      const { data: { publicUrl } } = supabase.storage
+        .from('events')
+        .getPublicUrl(filePath);
 
-      // Create event
+      // Create event with the storage URL
       const { data: eventData, error: eventError } = await supabase
         .from("events")
         .insert({
           name: eventName,
-          image_url: imageUrl,
+          image_url: publicUrl,
           description: editor?.getHTML() || "",
           sheet_url: "", // We keep this for backwards compatibility
         })

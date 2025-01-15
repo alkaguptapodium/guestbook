@@ -5,6 +5,8 @@ import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import { FileUpload } from "./FileUpload";
 import { Editor } from "@tiptap/react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 interface EventFormProps {
   eventName: string;
@@ -29,9 +31,33 @@ export const EventForm = ({
   isLoading,
   onSubmit,
 }: EventFormProps) => {
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { toast } = useToast();
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setEventImage(e.target.files[0]);
+      const file = e.target.files[0];
+      
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast({
+          variant: "destructive",
+          title: "Invalid file type",
+          description: "Please upload an image file",
+        });
+        return;
+      }
+
+      // Validate file size (5MB limit)
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          variant: "destructive",
+          title: "File too large",
+          description: "Image must be less than 5MB",
+        });
+        return;
+      }
+
+      setEventImage(file);
     }
   };
 
@@ -73,7 +99,7 @@ export const EventForm = ({
         accept=".csv"
         onChange={handleCsvChange}
         file={csvFile}
-        helperText="CSV should contain columns: Name, Headline, LinkedIn Link, Type (Guest/Host), Profile Picture (Google Drive URL)"
+        helperText="CSV should contain columns: Name, Headline, LinkedIn Link, Type (Guest/Host), Profile Picture URL"
       />
 
       <Button
