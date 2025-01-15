@@ -11,11 +11,11 @@ interface HostsSectionProps {
 export const HostsSection = ({ hosts }: HostsSectionProps) => {
   console.log('Rendering HostsSection with all attendees:', hosts);
   
-  // Filter attendees to show only hosts, checking case-insensitive and trimming spaces
+  // Filter attendees to show only hosts, checking exact match for "Host"
   const hostAttendees = hosts.filter(attendee => {
-    const normalizedType = attendee.type?.trim().toLowerCase() || '';
-    const isHost = normalizedType.includes('host');
-    console.log(`Checking attendee ${attendee.name}: type=${attendee.type}, normalizedType=${normalizedType}, isHost=${isHost}`);
+    const type = attendee.type?.trim() || '';
+    const isHost = type === 'Host'; // Exact match for "Host"
+    console.log(`Checking attendee ${attendee.name}: type=${attendee.type}, isHost=${isHost}`);
     return isHost;
   });
 
