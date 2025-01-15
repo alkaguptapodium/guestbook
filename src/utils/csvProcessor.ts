@@ -28,6 +28,12 @@ async function processGoogleDriveImage(driveUrl: string): Promise<string | null>
 }
 
 function normalizeType(type: string): 'Host' | 'Guest' {
+  // Handle undefined or null values
+  if (!type) {
+    console.log('Empty type value, defaulting to Guest');
+    return 'Guest';
+  }
+
   // Remove extra spaces and convert to lowercase for comparison
   const normalizedType = type.trim().toLowerCase();
   
@@ -36,9 +42,11 @@ function normalizeType(type: string): 'Host' | 'Guest' {
     original: type,
     trimmed: type.trim(),
     lowercase: normalizedType,
+    containsHost: normalizedType.includes('host'),
   });
   
   // Check if the normalized string includes 'host' anywhere
+  // This will catch variations like 'Host', 'HOST', 'host', 'Co-Host', etc.
   if (normalizedType.includes('host')) {
     return 'Host';
   }
@@ -59,7 +67,8 @@ export const processCSV = async (file: File): Promise<Attendee[]> => {
             
             console.log(`Processing CSV row for ${row.Name}:`, {
               originalType: row.Type,
-              normalizedType: normalizedType
+              normalizedType: normalizedType,
+              rowData: row
             });
             
             // Process Google Drive image if present
