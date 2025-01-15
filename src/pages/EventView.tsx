@@ -14,6 +14,7 @@ const EventView = () => {
     queryKey: ["event", id],
     queryFn: async () => {
       if (!id) throw new Error("No event ID provided");
+      console.log('Fetching event with ID:', id);
       
       const { data, error } = await supabase
         .from("events")
@@ -21,7 +22,10 @@ const EventView = () => {
         .eq("id", id)
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching event:', error);
+        throw error;
+      }
       return data;
     },
     enabled: !!id,
@@ -31,13 +35,17 @@ const EventView = () => {
     queryKey: ["attendees", id],
     queryFn: async () => {
       if (!id) throw new Error("No event ID provided");
+      console.log('Fetching attendees for event:', id);
       
       const { data, error } = await supabase
         .from("attendees")
         .select("*")
         .eq("event_id", id);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching attendees:', error);
+        throw error;
+      }
       return data;
     },
     enabled: !!id,
@@ -78,9 +86,9 @@ const EventView = () => {
               <h2 className="font-['uncut-sans'] text-3xl font-semibold uppercase">Hosts</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-              {hosts.map((host, index) => (
+              {hosts.map((host) => (
                 <AttendeeCard
-                  key={index}
+                  key={host.id}
                   name={host.name}
                   role={host.headline || "Host"}
                   company=""
@@ -99,9 +107,9 @@ const EventView = () => {
               <h2 className="font-['uncut-sans'] text-3xl font-semibold uppercase">Guests</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-              {guests.map((guest, index) => (
+              {guests.map((guest) => (
                 <AttendeeCard
-                  key={index}
+                  key={guest.id}
                   name={guest.name}
                   role={guest.headline || "Guest"}
                   company=""
