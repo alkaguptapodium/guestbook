@@ -13,13 +13,13 @@ export const EventHeader = ({ title, date, imageUrl }: EventHeaderProps) => {
       <div className="relative w-full h-[40vh] min-h-[300px]">
         <div className="absolute inset-0 bg-black/40 z-10" />
         <img
-          src={imageUrl}
+          src="/lovable-uploads/1662dcf9-9f41-48fd-b1dd-8262db949d13.png"
           alt={title}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="relative z-20 container h-full flex flex-col justify-center items-center text-white text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-['uncut-sans'] font-normal mb-4 animate-fadeIn uppercase">
-            {title}
+            Frame your Future
           </h1>
           <div className="flex items-center gap-2 text-lg animate-fadeIn">
             <CalendarDays className="w-5 h-5" />
