@@ -14,7 +14,7 @@ export const GuestsSection = ({ guests }: GuestsSectionProps) => {
   // Filter attendees to show only guests, checking case-insensitive and trimming spaces
   const guestAttendees = guests.filter(attendee => {
     const normalizedType = attendee.type?.trim().toLowerCase() || '';
-    const isGuest = !normalizedType.includes('host');
+    const isGuest = normalizedType.includes('guest');
     console.log(`Checking attendee ${attendee.name}: type=${attendee.type}, normalizedType=${normalizedType}, isGuest=${isGuest}`);
     return isGuest;
   });
