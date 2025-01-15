@@ -10,9 +10,16 @@ interface HostsSectionProps {
 
 export const HostsSection = ({ hosts }: HostsSectionProps) => {
   console.log('Rendering HostsSection with hosts:', hosts); // Debug log
+  
+  // Filter attendees to only show hosts
+  const hostAttendees = hosts.filter(attendee => 
+    attendee.type?.toLowerCase() === 'host'
+  );
 
   // Sort hosts alphabetically by name
-  const sortedHosts = [...hosts].sort((a, b) => a.name.localeCompare(b.name));
+  const sortedHosts = [...hostAttendees].sort((a, b) => 
+    a.name.localeCompare(b.name)
+  );
 
   return (
     <section>
