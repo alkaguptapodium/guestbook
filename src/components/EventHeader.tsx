@@ -14,7 +14,7 @@ export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderP
       <div className="relative w-full h-[40vh] min-h-[300px]">
         <div className="absolute inset-0 bg-black/40 z-10" />
         <img
-          src="/lovable-uploads/5949c4a3-6e16-491f-a937-cb97d4c8ba20.png"
+          src={imageUrl}
           alt={title}
           className="absolute inset-0 w-full h-full object-cover"
         />
