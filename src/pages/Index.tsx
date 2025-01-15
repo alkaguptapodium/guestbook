@@ -48,7 +48,7 @@ const Index = () => {
         imageUrl={eventData.imageUrl}
       />
       
-      <main className="container py-12">
+      <main className="container px-4 sm:px-6 lg:px-8 py-12">
         <div className="space-y-16 animate-fadeIn">
           {/* Hosts Section */}
           <section>
@@ -56,7 +56,7 @@ const Index = () => {
               <Crown className="w-6 h-6 text-podium-gold" />
               <h2 className="font-playfair text-3xl font-semibold">Hosts</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {eventData.hosts.map((host, index) => (
                 <AttendeeCard
                   key={index}
@@ -73,7 +73,7 @@ const Index = () => {
               <Users className="w-6 h-6 text-podium-dark" />
               <h2 className="font-playfair text-3xl font-semibold">Participants</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
               {eventData.participants.map((participant, index) => (
                 <AttendeeCard
                   key={index}
