@@ -18,7 +18,7 @@ export const EventHeader = ({ title, date, location, imageUrl }: EventHeaderProp
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="relative z-20 container h-full flex flex-col justify-center items-center text-white text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-4 animate-fadeIn uppercase">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-['uncut-sans'] font-normal mb-4 animate-fadeIn uppercase">
             {title}
           </h1>
           <div className="flex flex-col md:flex-row items-center gap-4 text-lg animate-fadeIn">
