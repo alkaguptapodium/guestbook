@@ -123,55 +123,81 @@ const EventView = () => {
     <div className="min-h-screen bg-[#fdfdf7]">
       <Navigation />
       <EventHeader
-        title={event.name}
-        date={new Date(event.created_at).toLocaleDateString()}
+        title={event?.name || ""}
+        date={new Date(event?.created_at || "").toLocaleDateString()}
         location=""
-        imageUrl={event.image_url || ""}
+        imageUrl={event?.image_url || ""}
       />
       
       <main className="container px-4 sm:px-6 lg:px-8 py-12">
-        <div className="space-y-16 animate-fadeIn">
-          {/* Hosts Section */}
-          <section>
-            <div className="flex items-center gap-2 mb-8">
-              <Crown className="w-6 h-6 text-podium-gold" />
-              <h2 className="font-['Inter'] text-3xl font-semibold uppercase">Hosts</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fadeIn">
+          {/* Left Column - Event Details */}
+          <div className="lg:col-span-1 space-y-6">
+            <div className="bg-white rounded-lg shadow-sm p-6 space-y-4">
+              <h3 className="text-xl font-semibold text-podium-dark">Event Details</h3>
+              <div className="prose prose-sm max-w-none text-podium-dark">
+                <p>
+                  Thanks for a soulful Saturday morning! We know that many of you want to meet 
+                  even more women than you managed to connect with in person.
+                </p>
+                <p>
+                  As we get our new membership up and running, we'll be building more pages 
+                  like these for Podium members to use after every experience that we host.
+                </p>
+                <p>
+                  Want to see all the photos? {" "}
+                  <a href="#" className="text-podium-gold hover:underline">
+                    Click here
+                  </a>
+                </p>
+              </div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-              {hosts.map((host) => (
-                <AttendeeCard
-                  key={host.id}
-                  name={host.name}
-                  role={host.headline || "Host"}
-                  company=""
-                  imageUrl={host.image_url || "/placeholder.svg"}
-                  linkedIn={host.linkedin_url}
-                  isMemberView={false}
-                />
-              ))}
-            </div>
-          </section>
+          </div>
 
-          {/* Guests Section */}
-          <section>
-            <div className="flex items-center gap-2 mb-8">
-              <Users className="w-6 h-6 text-podium-dark" />
-              <h2 className="font-['Inter'] text-3xl font-semibold uppercase">Guests</h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-              {guests.map((guest) => (
-                <AttendeeCard
-                  key={guest.id}
-                  name={guest.name}
-                  role={guest.headline || "Guest"}
-                  company=""
-                  imageUrl={guest.image_url || "/placeholder.svg"}
-                  linkedIn={guest.linkedin_url}
-                  isMemberView={false}
-                />
-              ))}
-            </div>
-          </section>
+          {/* Right Column - Attendees */}
+          <div className="lg:col-span-2 space-y-12">
+            {/* Hosts Section */}
+            <section>
+              <div className="flex items-center gap-2 mb-6">
+                <Crown className="w-6 h-6 text-podium-gold" />
+                <h2 className="font-['Inter'] text-2xl font-semibold uppercase">Hosts</h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {hosts?.map((host) => (
+                  <AttendeeCard
+                    key={host.id}
+                    name={host.name}
+                    role={host.headline || "Host"}
+                    company=""
+                    imageUrl={host.image_url || "/placeholder.svg"}
+                    linkedIn={host.linkedin_url}
+                    isMemberView={false}
+                  />
+                ))}
+              </div>
+            </section>
+
+            {/* Guests Section */}
+            <section>
+              <div className="flex items-center gap-2 mb-6">
+                <Users className="w-6 h-6 text-podium-dark" />
+                <h2 className="font-['Inter'] text-2xl font-semibold uppercase">Guests</h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {guests?.map((guest) => (
+                  <AttendeeCard
+                    key={guest.id}
+                    name={guest.name}
+                    role={guest.headline || "Guest"}
+                    company=""
+                    imageUrl={guest.image_url || "/placeholder.svg"}
+                    linkedIn={guest.linkedin_url}
+                    isMemberView={false}
+                  />
+                ))}
+              </div>
+            </section>
+          </div>
         </div>
       </main>
     </div>
