@@ -9,32 +9,32 @@ import { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
 const EventView = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Validate ID before making any queries
+  // Validate slug before making any queries
   useEffect(() => {
-    if (!id) {
+    if (!slug) {
       toast({
         variant: "destructive",
         title: "Invalid Event",
-        description: "No event ID provided. Redirecting to home page...",
+        description: "No event slug provided. Redirecting to home page...",
       });
       navigate("/");
     }
-  }, [id, navigate, toast]);
+  }, [slug, navigate, toast]);
 
   const { data: event, isError: eventError } = useQuery({
-    queryKey: ["event", id],
+    queryKey: ["event", slug],
     queryFn: async () => {
-      if (!id) throw new Error("No event ID provided");
-      console.log('Fetching event with ID:', id);
+      if (!slug) throw new Error("No event slug provided");
+      console.log('Fetching event with slug:', slug);
       
       const { data, error } = await supabase
         .from("events")
         .select("*")
-        .eq("id", id)
+        .eq("slug", slug)
         .maybeSingle();
 
       if (error) {
@@ -48,19 +48,19 @@ const EventView = () => {
       
       return data;
     },
-    enabled: Boolean(id), // Only run query if we have an ID
+    enabled: Boolean(slug),
   });
 
   const { data: attendees, isError: attendeesError } = useQuery({
-    queryKey: ["attendees", id],
+    queryKey: ["attendees", event?.id],
     queryFn: async () => {
-      if (!id) throw new Error("No event ID provided");
-      console.log('Fetching attendees for event:', id);
+      if (!event?.id) throw new Error("No event ID available");
+      console.log('Fetching attendees for event:', event.id);
       
       const { data, error } = await supabase
         .from("attendees")
         .select("*")
-        .eq("event_id", id);
+        .eq("event_id", event.id);
 
       if (error) {
         console.error('Error fetching attendees:', error);
@@ -68,7 +68,7 @@ const EventView = () => {
       }
       return data;
     },
-    enabled: Boolean(id), // Only run query if we have an ID
+    enabled: Boolean(event?.id),
   });
 
   // Update document title when event data loads
@@ -124,7 +124,7 @@ const EventView = () => {
       <Navigation />
       <EventHeader
         title={event.name}
-        date={new Date().toLocaleDateString()}
+        date={new Date(event.created_at).toLocaleDateString()}
         location=""
         imageUrl={event.image_url || ""}
       />

@@ -10,6 +10,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { EventForm } from "@/components/event/EventForm";
 import { processCSV } from "@/utils/csvProcessor";
 
+const generateSlug = (name: string) => {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
+};
+
 const CreateEvent = () => {
   const [eventName, setEventName] = useState("");
   const [eventImage, setEventImage] = useState<File | null>(null);
@@ -78,8 +85,10 @@ const CreateEvent = () => {
         .from('events')
         .getPublicUrl(filePath);
 
+      const slug = generateSlug(eventName);
+
       console.log("Creating event in database...");
-      // Create event with the storage URL
+      // Create event with the storage URL and slug
       const { data: eventData, error: eventError } = await supabase
         .from("events")
         .insert({
@@ -87,6 +96,7 @@ const CreateEvent = () => {
           image_url: publicUrl,
           description: editor?.getHTML() || "",
           sheet_url: "", // We keep this for backwards compatibility
+          slug: slug, // Add the slug
         })
         .select()
         .single();
@@ -118,9 +128,9 @@ const CreateEvent = () => {
         description: "Event created successfully!",
       });
 
-      // Navigate to the new event view page
-      console.log("Navigating to event page:", eventData.id);
-      navigate(`/event/${eventData.id}`);
+      // Navigate to the new event view page using the slug
+      console.log("Navigating to event page:", slug);
+      navigate(`/event/${slug}`);
     } catch (error: any) {
       console.error("Error in handleSubmit:", error);
       toast({

@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/create-event" element={<CreateEvent />} />
-            <Route path="/event/:id" element={<EventView />} />
+            <Route path="/event/:slug" element={<EventView />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
