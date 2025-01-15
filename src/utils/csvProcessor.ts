@@ -10,23 +10,22 @@ interface Attendee {
 
 const VALID_TYPES = ["Guest", "Host"];
 
-async function processGoogleDriveImage(driveUrl: string): Promise<string> {
-  const response = await fetch('/functions/v1/process-gdrive-image', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ driveUrl }),
-  });
+async function processGoogleDriveImage(driveUrl: string): Promise<string | null> {
+  try {
+    const { data, error } = await supabase.functions.invoke('process-gdrive-image', {
+      body: { driveUrl }
+    });
 
-  if (!response.ok) {
-    const error = await response.json();
+    if (error) {
+      console.error('Error processing Google Drive image:', error);
+      return null;
+    }
+
+    return data.url;
+  } catch (error) {
     console.error('Error processing Google Drive image:', error);
     return null;
   }
-
-  const { url } = await response.json();
-  return url;
 }
 
 export const processCSV = async (file: File): Promise<Attendee[]> => {
@@ -45,6 +44,8 @@ export const processCSV = async (file: File): Promise<Attendee[]> => {
             if (row["Profile Picture"] && row["Profile Picture"].includes('drive.google.com')) {
               console.log('Processing Google Drive image:', row["Profile Picture"]);
               imageUrl = await processGoogleDriveImage(row["Profile Picture"]);
+            } else {
+              imageUrl = row["Profile Picture"] || null;
             }
             
             return {
@@ -52,7 +53,7 @@ export const processCSV = async (file: File): Promise<Attendee[]> => {
               headline: row.Headline || null,
               linkedin_url: row["LinkedIn Link"] || null,
               type: normalizedType,
-              image_url: imageUrl || row["Profile Picture"] || null,
+              image_url: imageUrl,
             };
           });
 
