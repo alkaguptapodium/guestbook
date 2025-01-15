@@ -11,9 +11,9 @@ interface HostsSectionProps {
 export const HostsSection = ({ hosts }: HostsSectionProps) => {
   console.log('Rendering HostsSection with all hosts:', hosts); // Debug log
   
-  // Filter attendees to show hosts, being more inclusive in the matching
+  // Filter attendees to show hosts with exact match
   const hostAttendees = hosts.filter(attendee => {
-    const isHost = attendee.type?.toLowerCase().includes('host');
+    const isHost = attendee.type === 'Host';
     console.log(`Checking attendee ${attendee.name}: type=${attendee.type}, isHost=${isHost}`);
     return isHost;
   });

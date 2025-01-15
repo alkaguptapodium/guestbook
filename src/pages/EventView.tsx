@@ -112,11 +112,9 @@ const EventView = () => {
     );
   }
 
-  const hosts = attendees?.filter(attendee => attendee.type === 'Host') || [];
-  const guests = attendees?.filter(attendee => attendee.type === 'Guest') || [];
-
-  console.log('Hosts:', hosts); // Debug log
-  console.log('Guests:', guests); // Debug log
+  // Pass all attendees to both sections and let them handle their own filtering
+  console.log('Hosts:', attendees?.filter(a => a.type === 'Host')); // Debug log
+  console.log('Guests:', attendees?.filter(a => a.type === 'Guest')); // Debug log
 
   return (
     <div className="min-h-screen bg-[#fdfdf7]">
@@ -126,8 +124,8 @@ const EventView = () => {
       <main className="container px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fadeIn">
           <div className="lg:col-span-3 space-y-12">
-            <HostsSection hosts={hosts} />
-            <GuestsSection guests={guests} />
+            <HostsSection hosts={attendees || []} />
+            <GuestsSection guests={attendees || []} />
           </div>
         </div>
       </main>

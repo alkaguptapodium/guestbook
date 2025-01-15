@@ -12,7 +12,11 @@ export const GuestsSection = ({ guests }: GuestsSectionProps) => {
   console.log('Rendering GuestsSection with guests:', guests); // Debug log
 
   // Filter attendees to only show guests with exact match
-  const guestAttendees = guests.filter(attendee => attendee.type === 'Guest');
+  const guestAttendees = guests.filter(attendee => {
+    const isGuest = attendee.type === 'Guest';
+    console.log(`Checking attendee ${attendee.name}: type=${attendee.type}, isGuest=${isGuest}`);
+    return isGuest;
+  });
 
   // Sort guests alphabetically by name
   const sortedGuests = [...guestAttendees].sort((a, b) => 
