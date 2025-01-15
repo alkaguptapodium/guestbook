@@ -11,9 +11,9 @@ interface HostsSectionProps {
 export const HostsSection = ({ hosts }: HostsSectionProps) => {
   console.log('Rendering HostsSection with hosts:', hosts); // Debug log
   
-  // Filter attendees to only show hosts
+  // Filter attendees to only show hosts with case-insensitive comparison
   const hostAttendees = hosts.filter(attendee => 
-    attendee.type?.toLowerCase() === 'host'
+    attendee.type?.toLowerCase().trim() === 'host'
   );
 
   // Sort hosts alphabetically by name
