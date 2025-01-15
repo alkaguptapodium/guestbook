@@ -15,7 +15,7 @@ const eventData = {
       role: "Host & CTO",
       company: "TechVision Inc",
       imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80",
-      linkedIn: "https://linkedin.com",
+      linkedIn: "https://linkedin.com/in/sarahchen",
       email: "sarah@techvision.com",
     }
   ],
@@ -25,7 +25,7 @@ const eventData = {
       role: "VP Engineering",
       company: "InnovateLabs",
       imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80",
-      linkedIn: "https://linkedin.com",
+      linkedIn: "https://linkedin.com/in/michaelrodriguez",
       email: "michael@innovatelabs.com",
     },
     {
@@ -33,7 +33,7 @@ const eventData = {
       role: "Product Director",
       company: "Future Tech",
       imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80",
-      linkedIn: "https://linkedin.com",
+      linkedIn: "https://linkedin.com/in/emmathompson",
       email: "emma@futuretech.com",
     }
   ],
@@ -63,7 +63,7 @@ const Index = () => {
                 <AttendeeCard
                   key={index}
                   {...host}
-                  isMemberView={false}
+                  isMemberView={true}
                 />
               ))}
             </div>
@@ -80,7 +80,7 @@ const Index = () => {
                 <AttendeeCard
                   key={index}
                   {...participant}
-                  isMemberView={false}
+                  isMemberView={true}
                 />
               ))}
             </div>
