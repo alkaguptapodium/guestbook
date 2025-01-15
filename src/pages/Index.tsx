@@ -41,7 +41,7 @@ const eventData = {
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#fdfdf7]">
       <Navigation />
       <EventHeader
         title={eventData.title}
@@ -56,7 +56,7 @@ const Index = () => {
           <section>
             <div className="flex items-center gap-2 mb-8">
               <Crown className="w-6 h-6 text-podium-gold" />
-              <h2 className="font-playfair text-3xl font-semibold">Hosts</h2>
+              <h2 className="font-['uncut-sans'] text-3xl font-semibold uppercase">Hosts</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
               {eventData.hosts.map((host, index) => (
@@ -69,11 +69,11 @@ const Index = () => {
             </div>
           </section>
 
-          {/* Participants Section */}
+          {/* Guests Section (formerly Participants) */}
           <section>
             <div className="flex items-center gap-2 mb-8">
               <Users className="w-6 h-6 text-podium-dark" />
-              <h2 className="font-playfair text-3xl font-semibold">Participants</h2>
+              <h2 className="font-['uncut-sans'] text-3xl font-semibold uppercase">Guests</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
               {eventData.participants.map((participant, index) => (
