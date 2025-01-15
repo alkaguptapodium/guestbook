@@ -69,54 +69,51 @@ const EventView = () => {
         imageUrl={event.image_url || ""}
       />
       
-      <div className="container px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 gap-12">
-          {/* Attendees */}
-          <div className="space-y-16 animate-fadeIn">
-            {/* Hosts Section */}
-            <section>
-              <div className="flex items-center gap-2 mb-8">
-                <Crown className="w-6 h-6 text-podium-gold" />
-                <h2 className="font-['uncut-sans'] text-3xl font-semibold uppercase">Hosts</h2>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                {hosts.map((host, index) => (
-                  <AttendeeCard
-                    key={index}
-                    name={host.name}
-                    role={host.headline || "Host"}
-                    company=""
-                    imageUrl={host.image_url || "/placeholder.svg"}
-                    linkedIn={host.linkedin_url}
-                    isMemberView={false}
-                  />
-                ))}
-              </div>
-            </section>
+      <main className="container px-4 sm:px-6 lg:px-8 py-12">
+        <div className="space-y-16 animate-fadeIn">
+          {/* Hosts Section */}
+          <section>
+            <div className="flex items-center gap-2 mb-8">
+              <Crown className="w-6 h-6 text-podium-gold" />
+              <h2 className="font-['uncut-sans'] text-3xl font-semibold uppercase">Hosts</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+              {hosts.map((host, index) => (
+                <AttendeeCard
+                  key={index}
+                  name={host.name}
+                  role={host.headline || "Host"}
+                  company=""
+                  imageUrl={host.image_url || "/placeholder.svg"}
+                  linkedIn={host.linkedin_url}
+                  isMemberView={false}
+                />
+              ))}
+            </div>
+          </section>
 
-            {/* Guests Section */}
-            <section>
-              <div className="flex items-center gap-2 mb-8">
-                <Users className="w-6 h-6 text-podium-dark" />
-                <h2 className="font-['uncut-sans'] text-3xl font-semibold uppercase">Guests</h2>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                {guests.map((guest, index) => (
-                  <AttendeeCard
-                    key={index}
-                    name={guest.name}
-                    role={guest.headline || "Guest"}
-                    company=""
-                    imageUrl={guest.image_url || "/placeholder.svg"}
-                    linkedIn={guest.linkedin_url}
-                    isMemberView={false}
-                  />
-                ))}
-              </div>
-            </section>
-          </div>
+          {/* Guests Section */}
+          <section>
+            <div className="flex items-center gap-2 mb-8">
+              <Users className="w-6 h-6 text-podium-dark" />
+              <h2 className="font-['uncut-sans'] text-3xl font-semibold uppercase">Guests</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+              {guests.map((guest, index) => (
+                <AttendeeCard
+                  key={index}
+                  name={guest.name}
+                  role={guest.headline || "Guest"}
+                  company=""
+                  imageUrl={guest.image_url || "/placeholder.svg"}
+                  linkedIn={guest.linkedin_url}
+                  isMemberView={false}
+                />
+              ))}
+            </div>
+          </section>
         </div>
-      </div>
+      </main>
     </div>
   );
 };
