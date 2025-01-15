@@ -114,7 +114,8 @@ const EventView = () => {
 
   const isHostType = (type: string | null): boolean => {
     if (!type) return false;
-    return type.toLowerCase().trim() === 'host';
+    const normalizedType = type.toLowerCase().trim();
+    return normalizedType === 'host' || normalizedType === 'hosts';
   };
 
   const hosts = attendees?.filter(attendee => isHostType(attendee.type)) || [];
