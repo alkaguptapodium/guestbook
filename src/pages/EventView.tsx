@@ -12,6 +12,8 @@ const EventView = () => {
   const { data: event } = useQuery({
     queryKey: ["event", id],
     queryFn: async () => {
+      if (!id) throw new Error("No event ID provided");
+      
       const { data, error } = await supabase
         .from("events")
         .select("*")
@@ -21,11 +23,14 @@ const EventView = () => {
       if (error) throw error;
       return data;
     },
+    enabled: !!id,
   });
 
   const { data: attendees } = useQuery({
     queryKey: ["attendees", id],
     queryFn: async () => {
+      if (!id) throw new Error("No event ID provided");
+      
       const { data, error } = await supabase
         .from("attendees")
         .select("*")
@@ -34,6 +39,7 @@ const EventView = () => {
       if (error) throw error;
       return data;
     },
+    enabled: !!id,
   });
 
   const hosts = attendees?.filter((attendee) => attendee.type === "Host") || [];
