@@ -125,39 +125,18 @@ const EventView = () => {
                   <Image className="w-6 h-6 text-podium-dark" />
                   <h2 className="font-['uncut-sans'] text-3xl font-semibold uppercase">Photos</h2>
                 </div>
-                <Button
-                  variant="outline"
-                  className="text-podium-gold hover:text-podium-gold/90"
-                  onClick={() => window.open(event.sheet_url, "_blank")}
-                >
-                  View All Photos
-                </Button>
+                {event.sheet_url && (
+                  <Button
+                    variant="outline"
+                    className="text-podium-gold hover:text-podium-gold/90"
+                    onClick={() => window.open(event.sheet_url, "_blank")}
+                  >
+                    View All Photos
+                  </Button>
+                )}
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <img
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
-                  alt="Event photo 1"
-                  className="w-full aspect-square object-cover rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
-                  onClick={() => window.open("https://images.unsplash.com/photo-1581091226825-a6a2a5aee158", "_blank")}
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
-                  alt="Event photo 2"
-                  className="w-full aspect-square object-cover rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
-                  onClick={() => window.open("https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d", "_blank")}
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7"
-                  alt="Event photo 3"
-                  className="w-full aspect-square object-cover rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
-                  onClick={() => window.open("https://images.unsplash.com/photo-1649972904349-6e44c42644a7", "_blank")}
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"
-                  alt="Event photo 4"
-                  className="w-full aspect-square object-cover rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
-                  onClick={() => window.open("https://images.unsplash.com/photo-1488590528505-98d2b5aba04b", "_blank")}
-                />
+              <div className="rounded-lg border-2 border-dashed border-gray-200 p-8 text-center">
+                <p className="text-gray-500">No photos available yet</p>
               </div>
             </section>
           </div>
