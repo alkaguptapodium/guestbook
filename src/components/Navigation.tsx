@@ -2,7 +2,7 @@ import { Circle } from "lucide-react";
 
 export const Navigation = () => {
   return (
-    <nav className="w-full bg-white border-b border-gray-200">
+    <nav className="w-full bg-[#fdfdf7] border-b border-gray-200">
       <div className="container px-4 mx-auto">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}

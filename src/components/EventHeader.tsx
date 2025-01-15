@@ -1,4 +1,4 @@
-import { CalendarDays, MapPin } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 
 interface EventHeaderProps {
   title: string;
@@ -7,7 +7,7 @@ interface EventHeaderProps {
   imageUrl: string;
 }
 
-export const EventHeader = ({ title, date, location, imageUrl }: EventHeaderProps) => {
+export const EventHeader = ({ title, date, imageUrl }: EventHeaderProps) => {
   return (
     <>
       <div className="relative w-full h-[40vh] min-h-[300px]">
@@ -21,16 +21,9 @@ export const EventHeader = ({ title, date, location, imageUrl }: EventHeaderProp
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-['uncut-sans'] font-normal mb-4 animate-fadeIn uppercase">
             {title}
           </h1>
-          <div className="flex flex-col md:flex-row items-center gap-4 text-lg animate-fadeIn">
-            <div className="flex items-center gap-2">
-              <CalendarDays className="w-5 h-5" />
-              <span>{date}</span>
-            </div>
-            <div className="hidden md:block">•</div>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-5 h-5" />
-              <span>{location}</span>
-            </div>
+          <div className="flex items-center gap-2 text-lg animate-fadeIn">
+            <CalendarDays className="w-5 h-5" />
+            <span>{date}</span>
           </div>
         </div>
       </div>
