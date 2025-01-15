@@ -27,7 +27,8 @@ const convertImageUrl = (url: string): string => {
     // Extract the file ID
     const fileId = url.match(/[-\w]{25,}/);
     if (fileId) {
-      const convertedUrl = `https://drive.google.com/uc?export=view&id=${fileId[0]}`;
+      // Use the direct download URL format
+      const convertedUrl = `https://drive.google.com/uc?export=download&id=${fileId[0]}`;
       console.log('Converted Google Drive URL to:', convertedUrl);
       return convertedUrl;
     }
@@ -45,8 +46,8 @@ const convertImageUrl = (url: string): string => {
     return url;
   }
   
-  console.log('URL format not recognized, using as is:', url);
-  return url;
+  console.log('URL format not recognized, using placeholder');
+  return "/placeholder.svg";
 };
 
 const getInitials = (name: string): string => {
@@ -82,6 +83,8 @@ export const AttendeeCard = ({
                 name: name,
                 error: e
               });
+              // Set fallback image on error
+              (e.target as HTMLImageElement).src = "/placeholder.svg";
             }}
           />
           <AvatarFallback className="w-full h-full text-4xl font-semibold bg-gradient-to-br from-gray-100 to-gray-200">
