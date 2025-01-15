@@ -58,10 +58,14 @@ export const AttendeeCard = ({
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-[#0EA5E9] hover:text-[#0EA5E9]/90 hover:bg-[#0EA5E9]/10"
+              className="h-8 w-8 text-[#0A66C2] hover:text-[#0A66C2]/90 hover:bg-[#0A66C2]/10 p-1.5"
               onClick={() => window.open(linkedIn, "_blank")}
             >
-              <Linkedin className="h-5 w-5" />
+              <img 
+                src="/lovable-uploads/bea47329-c113-4b46-9ecd-ee4e086f4ee2.png" 
+                alt="LinkedIn"
+                className="w-full h-full"
+              />
             </Button>
           )}
         </div>
