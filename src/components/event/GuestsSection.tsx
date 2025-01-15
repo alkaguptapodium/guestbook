@@ -11,10 +11,11 @@ interface GuestsSectionProps {
 export const GuestsSection = ({ guests }: GuestsSectionProps) => {
   console.log('Rendering GuestsSection with guests:', guests);
   
-  // Filter attendees to show only guests with exact match for "Guest"
+  // Filter attendees to show only guests, checking case-insensitive and trimming spaces
   const guestAttendees = guests.filter(attendee => {
-    const isGuest = attendee.type === 'Guest';
-    console.log(`Checking attendee ${attendee.name}: type=${attendee.type}, isGuest=${isGuest}`);
+    const normalizedType = attendee.type?.trim().toLowerCase() || '';
+    const isGuest = !normalizedType.includes('host');
+    console.log(`Checking attendee ${attendee.name}: type=${attendee.type}, normalizedType=${normalizedType}, isGuest=${isGuest}`);
     return isGuest;
   });
 
