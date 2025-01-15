@@ -52,21 +52,22 @@ export const AttendeeCard = ({
         </Avatar>
       </div>
       <div className="p-4 space-y-2">
-        <h3 className="font-playfair text-xl font-semibold">{name}</h3>
+        <div className="flex items-center justify-between">
+          <h3 className="font-playfair text-xl font-semibold">{name}</h3>
+          {linkedIn && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 text-[#0EA5E9] hover:text-[#0EA5E9]/90 hover:bg-[#0EA5E9]/10"
+              onClick={() => window.open(linkedIn, "_blank")}
+            >
+              <Linkedin className="h-5 w-5" />
+            </Button>
+          )}
+        </div>
         <p className="text-sm text-muted-foreground">
           {role} {company && `at ${company}`}
         </p>
-        {linkedIn && (
-          <Button
-            variant="outline"
-            size="sm"
-            className="w-full bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90 border-0"
-            onClick={() => window.open(linkedIn, "_blank")}
-          >
-            <Linkedin className="w-4 h-4 mr-2" />
-            Connect on LinkedIn
-          </Button>
-        )}
       </div>
     </Card>
   );
