@@ -13,7 +13,6 @@ const EventView = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Validate slug before making any queries
   useEffect(() => {
     if (!slug) {
       toast({
@@ -114,8 +113,16 @@ const EventView = () => {
     );
   }
 
-  const hosts = attendees?.filter((attendee) => attendee.type === "Host") || [];
-  const guests = attendees?.filter((attendee) => attendee.type === "Guest") || [];
+  const hosts = attendees?.filter((attendee) => 
+    attendee.type?.toLowerCase() === "host" || 
+    attendee.type?.toLowerCase() === "hosts"
+  ) || [];
+  
+  const guests = attendees?.filter((attendee) => 
+    attendee.type?.toLowerCase() === "guest" || 
+    attendee.type?.toLowerCase() === "participant" ||
+    attendee.type?.toLowerCase() === "guests"
+  ) || [];
 
   return (
     <div className="min-h-screen bg-[#fdfdf7]">
