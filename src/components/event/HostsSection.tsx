@@ -9,10 +9,14 @@ interface HostsSectionProps {
 }
 
 export const HostsSection = ({ hosts }: HostsSectionProps) => {
-  console.log('Rendering HostsSection with hosts:', hosts); // Debug log
+  console.log('Rendering HostsSection with all hosts:', hosts); // Debug log
   
-  // Filter attendees to only show hosts with exact match
-  const hostAttendees = hosts.filter(attendee => attendee.type === 'Host');
+  // Filter attendees to show hosts, being more inclusive in the matching
+  const hostAttendees = hosts.filter(attendee => {
+    const isHost = attendee.type?.toLowerCase().includes('host');
+    console.log(`Checking attendee ${attendee.name}: type=${attendee.type}, isHost=${isHost}`);
+    return isHost;
+  });
 
   // Sort hosts alphabetically by name
   const sortedHosts = [...hostAttendees].sort((a, b) => 
