@@ -4,6 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import Link from '@tiptap/extension-link'
+import Underline from '@tiptap/extension-underline'
+import { RichTextEditor } from "@/components/RichTextEditor";
 
 const CreateEvent = () => {
   const [eventName, setEventName] = useState("");
@@ -12,6 +17,20 @@ const CreateEvent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Link.configure({
+        openOnClick: false,
+        HTMLAttributes: {
+          class: 'text-blue-500 underline',
+        },
+      }),
+      Underline,
+    ],
+    content: '',
+  })
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -72,6 +91,12 @@ const CreateEvent = () => {
                 Selected: {eventImage.name}
               </p>
             )}
+          </div>
+
+          <div className="space-y-2">
+            <Label>Event Description</Label>
+            <RichTextEditor editor={editor} />
+            <EditorContent editor={editor} className="hidden" />
           </div>
 
           <div className="space-y-2">
