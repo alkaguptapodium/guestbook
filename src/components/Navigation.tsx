@@ -17,24 +17,25 @@ export const Navigation = () => {
           {/* Navigation Links */}
           <div className="flex items-center space-x-8">
             <a
-              href="https://www.podiumsociety.com/about"
-              className="text-gray-700 hover:text-gray-900 transition-colors"
+              href="https://www.podiumsociety.com/"
+              className="flex items-center text-gray-700 hover:text-gray-900 transition-colors"
             >
-              About
+              <Circle className="w-2 h-2 mr-2" style={{ fill: '#c4cd23', color: '#c4cd23' }} />
+              Membership
             </a>
             <a
               href="https://www.podiumsociety.com/retreat"
               className="flex items-center text-gray-700 hover:text-gray-900 transition-colors"
             >
-              <Circle className="w-2 h-2 mr-2 fill-green-500 text-green-500" />
+              <Circle className="w-2 h-2 mr-2" style={{ fill: '#c4cd23', color: '#c4cd23' }} />
               Retreat
             </a>
             <a
-              href="https://www.podiumsociety.com/"
+              href="https://www.podiumsociety.com/about"
               className="flex items-center text-gray-700 hover:text-gray-900 transition-colors"
             >
-              <Circle className="w-2 h-2 mr-2 fill-green-500 text-green-500" />
-              Membership
+              <Circle className="w-2 h-2 mr-2" style={{ fill: '#c4cd23', color: '#c4cd23' }} />
+              About
             </a>
           </div>
         </div>
