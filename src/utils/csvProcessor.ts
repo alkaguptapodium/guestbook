@@ -1,4 +1,3 @@
-import Papa from "papaparse";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Attendee {
@@ -36,7 +35,7 @@ export const processCSV = async (file: File): Promise<Attendee[]> => {
           const attendeesPromises = results.data.map(async (row: any) => {
             // Normalize the type field to either 'Host' or 'Guest'
             const rawType = row.Type || "Guest";
-            const normalizedType = rawType.toLowerCase().includes('host') ? 'Host' : 'Guest';
+            const normalizedType = rawType.toLowerCase().includes('host') ? 'Host' as const : 'Guest' as const;
             
             // Process Google Drive image if present
             let imageUrl = null;
@@ -47,17 +46,19 @@ export const processCSV = async (file: File): Promise<Attendee[]> => {
               imageUrl = row["Profile Picture"] || null;
             }
             
-            return {
+            const attendee: Attendee = {
               name: row.Name || "",
               headline: row.Headline || null,
               linkedin_url: row["LinkedIn Link"] || null,
               type: normalizedType,
               image_url: imageUrl,
             };
+            
+            return attendee;
           });
 
           const attendees = await Promise.all(attendeesPromises);
-          resolve(attendees.filter((attendee: Attendee) => attendee.name));
+          resolve(attendees.filter((attendee): attendee is Attendee => Boolean(attendee.name)));
         } catch (error) {
           console.error('Error processing attendees:', error);
           reject(error);
