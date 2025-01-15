@@ -9,6 +9,8 @@ import TextAlign from "@tiptap/extension-text-align";
 import { supabase } from "@/integrations/supabase/client";
 import { EventForm } from "@/components/event/EventForm";
 import { processCSV } from "@/utils/csvProcessor";
+import { useQuery } from "@tanstack/react-query";
+import { CalendarDays } from "lucide-react";
 
 const generateSlug = (name: string) => {
   return name
@@ -24,6 +26,25 @@ const CreateEvent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Fetch past events
+  const { data: pastEvents } = useQuery({
+    queryKey: ['past-events'],
+    queryFn: async () => {
+      console.log('Fetching past events...');
+      const { data, error } = await supabase
+        .from('events')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) {
+        console.error('Error fetching past events:', error);
+        throw error;
+      }
+      
+      return data;
+    },
+  });
 
   const editor = useEditor({
     extensions: [
@@ -160,6 +181,38 @@ const CreateEvent = () => {
           isLoading={isLoading}
           onSubmit={handleSubmit}
         />
+
+        {/* Past Events Section */}
+        <div className="mt-16">
+          <div className="flex items-center gap-2 mb-8">
+            <CalendarDays className="w-6 h-6 text-gray-600" />
+            <h2 className="font-['uncut-sans'] text-2xl uppercase">Past Events</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {pastEvents?.map((event) => (
+              <div 
+                key={event.id} 
+                className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-4 cursor-pointer"
+                onClick={() => navigate(`/event/${event.slug}`)}
+              >
+                {event.image_url && (
+                  <div className="relative h-40 mb-4">
+                    <img
+                      src={event.image_url}
+                      alt={event.name}
+                      className="absolute inset-0 w-full h-full object-cover rounded"
+                    />
+                  </div>
+                )}
+                <h3 className="font-['uncut-sans'] text-lg font-medium mb-2">{event.name}</h3>
+                <p className="text-sm text-gray-500">
+                  {new Date(event.created_at).toLocaleDateString()}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
