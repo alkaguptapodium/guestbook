@@ -48,6 +48,7 @@ const CreateEvent = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    console.log("Starting event creation...");
 
     try {
       if (!eventImage || !csvFile) {
@@ -59,6 +60,7 @@ const CreateEvent = () => {
       const fileExt = eventImage.name.split('.').pop();
       const filePath = `${timestamp}_${crypto.randomUUID()}.${fileExt}`;
 
+      console.log("Uploading image...");
       const { error: uploadError, data } = await supabase.storage
         .from('events')
         .upload(filePath, eventImage, {
@@ -66,13 +68,17 @@ const CreateEvent = () => {
           upsert: false
         });
 
-      if (uploadError) throw uploadError;
+      if (uploadError) {
+        console.error("Upload error:", uploadError);
+        throw uploadError;
+      }
 
       // Get the public URL for the uploaded image
       const { data: { publicUrl } } = supabase.storage
         .from('events')
         .getPublicUrl(filePath);
 
+      console.log("Creating event in database...");
       // Create event with the storage URL
       const { data: eventData, error: eventError } = await supabase
         .from("events")
@@ -85,8 +91,12 @@ const CreateEvent = () => {
         .select()
         .single();
 
-      if (eventError) throw eventError;
+      if (eventError) {
+        console.error("Event creation error:", eventError);
+        throw eventError;
+      }
 
+      console.log("Processing CSV...");
       // Process CSV and create attendees
       const attendees = await processCSV(csvFile);
       const { error: attendeesError } = await supabase
@@ -98,7 +108,10 @@ const CreateEvent = () => {
           }))
         );
 
-      if (attendeesError) throw attendeesError;
+      if (attendeesError) {
+        console.error("Attendees creation error:", attendeesError);
+        throw attendeesError;
+      }
 
       toast({
         title: "Success",
@@ -106,8 +119,10 @@ const CreateEvent = () => {
       });
 
       // Navigate to the new event view page
+      console.log("Navigating to event page:", eventData.id);
       navigate(`/event/${eventData.id}`);
     } catch (error: any) {
+      console.error("Error in handleSubmit:", error);
       toast({
         variant: "destructive",
         title: "Error",
