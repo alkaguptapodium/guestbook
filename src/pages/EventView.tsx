@@ -59,7 +59,8 @@ const EventView = () => {
       const { data, error } = await supabase
         .from("attendees")
         .select("*")
-        .eq("event_id", event.id);
+        .eq("event_id", event.id)
+        .order('name');  // Order by name alphabetically at the database level
 
       if (error) {
         console.error('Error fetching attendees:', error);
@@ -111,15 +112,13 @@ const EventView = () => {
     );
   }
 
-  const isHostType = (type: string | null) => {
+  const isHostType = (type: string | null): boolean => {
     if (!type) return false;
-    const normalizedType = type.toLowerCase().trim();
-    return normalizedType === 'host' || normalizedType === 'hosts';
+    return type.toLowerCase().trim() === 'host';
   };
 
-  const hosts = attendees?.filter((attendee) => isHostType(attendee.type)) || [];
-  
-  const guests = attendees?.filter((attendee) => !isHostType(attendee.type)) || [];
+  const hosts = attendees?.filter(attendee => isHostType(attendee.type)) || [];
+  const guests = attendees?.filter(attendee => !isHostType(attendee.type)) || [];
 
   return (
     <div className="min-h-screen bg-[#fdfdf7]">
@@ -129,13 +128,14 @@ const EventView = () => {
         date={new Date(event?.created_at || "").toLocaleDateString()}
         location=""
         imageUrl={event?.image_url || ""}
+        description={event?.description}
       />
       
       <main className="container px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fadeIn">
           <div className="lg:col-span-3 space-y-12">
-            <HostsSection hosts={hosts} />
-            <GuestsSection guests={guests} />
+            {hosts.length > 0 && <HostsSection hosts={hosts} />}
+            {guests.length > 0 && <GuestsSection guests={guests} />}
           </div>
         </div>
       </main>
