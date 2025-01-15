@@ -79,9 +79,11 @@ export function RichTextEditor({ editor }: RichTextEditorProps) {
           </PopoverContent>
         </Popover>
       </div>
-      <div className="prose prose-sm max-w-none p-3 min-h-[150px]">
+      <div 
+        className="prose prose-sm max-w-none p-3 min-h-[150px]"
+        onClick={() => editor.chain().focus()}
+      >
         <div 
-          onClick={() => editor.chain().focus()} 
           className="outline-none"
           dangerouslySetInnerHTML={{ __html: editor.getHTML() }}
         />
