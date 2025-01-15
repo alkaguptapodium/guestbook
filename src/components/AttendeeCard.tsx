@@ -35,6 +35,11 @@ export const AttendeeCard = ({
     <Card className="overflow-hidden animate-fadeIn">
       <div className="aspect-square overflow-hidden bg-gray-100">
         <Avatar className="w-full h-full rounded-none">
+          <AvatarImage
+            src={imageUrl}
+            alt={`Profile photo of ${name}`}
+            className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
+          />
           <AvatarFallback className="w-full h-full text-4xl font-semibold bg-gradient-to-br from-gray-100 to-gray-200">
             {getInitials(name)}
           </AvatarFallback>
