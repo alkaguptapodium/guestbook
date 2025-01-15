@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Linkedin } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface AttendeeCardProps {
   name: string;
@@ -48,6 +49,15 @@ const convertImageUrl = (url: string): string => {
   return url;
 };
 
+const getInitials = (name: string): string => {
+  return name
+    .split(' ')
+    .map(part => part[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+};
+
 export const AttendeeCard = ({
   name,
   role,
@@ -60,23 +70,24 @@ export const AttendeeCard = ({
   return (
     <Card className="overflow-hidden animate-fadeIn">
       <div className="aspect-square overflow-hidden bg-gray-100">
-        <img
-          src={convertImageUrl(imageUrl)}
-          alt={`Profile photo of ${name}`}
-          className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            console.error('Image failed to load:', {
-              originalUrl: imageUrl,
-              convertedUrl: target.src,
-              name: name,
-              error: e
-            });
-            target.src = "/placeholder.svg";
-            target.onerror = null; // Prevent infinite loop if placeholder also fails
-          }}
-          loading="lazy"
-        />
+        <Avatar className="w-full h-full rounded-none">
+          <AvatarImage
+            src={convertImageUrl(imageUrl)}
+            alt={`Profile photo of ${name}`}
+            className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
+            onError={(e) => {
+              console.error('Image failed to load:', {
+                originalUrl: imageUrl,
+                convertedUrl: (e.target as HTMLImageElement).src,
+                name: name,
+                error: e
+              });
+            }}
+          />
+          <AvatarFallback className="w-full h-full text-4xl font-semibold bg-gradient-to-br from-gray-100 to-gray-200">
+            {getInitials(name)}
+          </AvatarFallback>
+        </Avatar>
       </div>
       <div className="p-4">
         <h3 className="font-playfair text-xl font-semibold">{name}</h3>
