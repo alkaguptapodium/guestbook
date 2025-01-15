@@ -11,10 +11,9 @@ interface GuestsSectionProps {
 export const GuestsSection = ({ guests }: GuestsSectionProps) => {
   console.log('Rendering GuestsSection with guests:', guests);
   
-  // Filter attendees to show only guests, checking exact match for "Guest"
+  // Filter attendees to show only guests with exact match for "Guest"
   const guestAttendees = guests.filter(attendee => {
-    const type = attendee.type?.trim() || '';
-    const isGuest = type === 'Guest'; // Exact match for "Guest"
+    const isGuest = attendee.type === 'Guest';
     console.log(`Checking attendee ${attendee.name}: type=${attendee.type}, isGuest=${isGuest}`);
     return isGuest;
   });
