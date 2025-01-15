@@ -34,12 +34,12 @@ export const processCSV = async (file: File): Promise<Attendee[]> => {
       complete: async (results) => {
         try {
           const attendeesPromises = results.data.map(async (row: any) => {
-            // Normalize the type field
-            const rawType = (row.Type || "Guest").trim();
-            // Standardize to exactly 'Host' or 'Guest'
+            // Normalize the type field to exactly 'Host' or 'Guest'
+            const rawType = (row.Type || "").trim();
+            // Standardize to exactly 'Host' or 'Guest' with proper casing
             const normalizedType = rawType.toLowerCase().includes('host') ? 'Host' : 'Guest';
             
-            console.log(`Processing attendee ${row.Name} with raw type: ${rawType}, normalized to: ${normalizedType}`); // Debug log
+            console.log(`Processing CSV row for ${row.Name} with type: ${normalizedType}`); // Debug log
             
             // Process Google Drive image if present
             let imageUrl = null;
