@@ -1,5 +1,5 @@
 import { type Editor } from '@tiptap/react'
-import { Bold, Italic, Underline, Link } from "lucide-react"
+import { Bold, Italic, Underline, Link, List, AlignLeft, AlignCenter, AlignRight } from "lucide-react"
 import { Toggle } from "@/components/ui/toggle"
 import { Button } from "@/components/ui/button"
 import { EditorContent } from '@tiptap/react'
@@ -58,6 +58,36 @@ export function RichTextEditor({ editor }: RichTextEditorProps) {
         >
           <Underline className="h-4 w-4" />
         </Toggle>
+        <Toggle
+          size="sm"
+          pressed={editor.isActive('bulletList')}
+          onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
+        >
+          <List className="h-4 w-4" />
+        </Toggle>
+        <div className="flex items-center gap-0.5 ml-1">
+          <Toggle
+            size="sm"
+            pressed={editor.isActive({ textAlign: 'left' })}
+            onPressedChange={() => editor.chain().focus().setTextAlign('left').run()}
+          >
+            <AlignLeft className="h-4 w-4" />
+          </Toggle>
+          <Toggle
+            size="sm"
+            pressed={editor.isActive({ textAlign: 'center' })}
+            onPressedChange={() => editor.chain().focus().setTextAlign('center').run()}
+          >
+            <AlignCenter className="h-4 w-4" />
+          </Toggle>
+          <Toggle
+            size="sm"
+            pressed={editor.isActive({ textAlign: 'right' })}
+            onPressedChange={() => editor.chain().focus().setTextAlign('right').run()}
+          >
+            <AlignRight className="h-4 w-4" />
+          </Toggle>
+        </div>
         <Popover>
           <PopoverTrigger asChild>
             <Toggle

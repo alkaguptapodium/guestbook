@@ -8,6 +8,7 @@ import { useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Link from '@tiptap/extension-link'
 import Underline from '@tiptap/extension-underline'
+import TextAlign from '@tiptap/extension-text-align'
 import { RichTextEditor } from "@/components/RichTextEditor";
 import { supabase } from "@/integrations/supabase/client";
 import Papa from 'papaparse';
@@ -22,7 +23,9 @@ const CreateEvent = () => {
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        bulletList: true,
+      }),
       Link.configure({
         openOnClick: false,
         HTMLAttributes: {
@@ -30,6 +33,9 @@ const CreateEvent = () => {
         },
       }),
       Underline,
+      TextAlign.configure({
+        types: ['paragraph', 'heading'],
+      }),
     ],
     content: '',
     editorProps: {
