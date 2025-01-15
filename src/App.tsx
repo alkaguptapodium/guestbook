@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import CreateEvent from "./pages/CreateEvent";
+import EventView from "./pages/EventView";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/create-event" element={<CreateEvent />} />
+            <Route path="/event/:id" element={<EventView />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>

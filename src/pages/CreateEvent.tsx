@@ -102,7 +102,8 @@ const CreateEvent = () => {
         description: "Event created successfully!",
       });
 
-      navigate("/");
+      // Navigate to the new event view page
+      navigate(`/event/${eventData.id}`);
     } catch (error: any) {
       toast({
         variant: "destructive",
