@@ -4,8 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { EventHeader } from "@/components/EventHeader";
 import { AttendeeCard } from "@/components/AttendeeCard";
 import { Navigation } from "@/components/Navigation";
-import { Crown, Users, Image } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Crown, Users } from "lucide-react";
 import { useEffect } from "react";
 
 const EventView = () => {
@@ -71,8 +70,8 @@ const EventView = () => {
       />
       
       <div className="container px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Left Column - Attendees */}
+        <div className="grid grid-cols-1 gap-12">
+          {/* Attendees */}
           <div className="space-y-16 animate-fadeIn">
             {/* Hosts Section */}
             <section>
@@ -113,30 +112,6 @@ const EventView = () => {
                     isMemberView={false}
                   />
                 ))}
-              </div>
-            </section>
-          </div>
-
-          {/* Right Column - Photos */}
-          <div className="space-y-8 animate-fadeIn">
-            <section>
-              <div className="flex items-center justify-between gap-2 mb-8">
-                <div className="flex items-center gap-2">
-                  <Image className="w-6 h-6 text-podium-dark" />
-                  <h2 className="font-['uncut-sans'] text-3xl font-semibold uppercase">Photos</h2>
-                </div>
-                {event.sheet_url && (
-                  <Button
-                    variant="outline"
-                    className="text-podium-gold hover:text-podium-gold/90"
-                    onClick={() => window.open(event.sheet_url, "_blank")}
-                  >
-                    View All Photos
-                  </Button>
-                )}
-              </div>
-              <div className="rounded-lg border-2 border-dashed border-gray-200 p-8 text-center">
-                <p className="text-gray-500">No photos available yet</p>
               </div>
             </section>
           </div>
