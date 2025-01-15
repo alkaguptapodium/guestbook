@@ -63,7 +63,11 @@ const EventView = () => {
               {hosts.map((host, index) => (
                 <AttendeeCard
                   key={index}
-                  {...host}
+                  name={host.name}
+                  role={host.headline || "Host"}
+                  company=""
+                  imageUrl={host.image_url || "/placeholder.svg"}
+                  linkedIn={host.linkedin_url}
                   isMemberView={false}
                 />
               ))}
@@ -80,7 +84,11 @@ const EventView = () => {
               {guests.map((guest, index) => (
                 <AttendeeCard
                   key={index}
-                  {...guest}
+                  name={guest.name}
+                  role={guest.headline || "Guest"}
+                  company=""
+                  imageUrl={guest.image_url || "/placeholder.svg"}
+                  linkedIn={guest.linkedin_url}
                   isMemberView={false}
                 />
               ))}
