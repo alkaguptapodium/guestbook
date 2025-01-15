@@ -70,7 +70,6 @@ const EventView = () => {
     enabled: Boolean(event?.id),
   });
 
-  // Update document title when event data loads
   useEffect(() => {
     if (event?.name) {
       document.title = event.name;
@@ -80,7 +79,6 @@ const EventView = () => {
     };
   }, [event?.name]);
 
-  // Handle errors
   useEffect(() => {
     if (eventError || attendeesError) {
       toast({
@@ -113,16 +111,15 @@ const EventView = () => {
     );
   }
 
-  const hosts = attendees?.filter((attendee) => 
-    attendee.type?.toLowerCase() === "host" || 
-    attendee.type?.toLowerCase() === "hosts"
-  ) || [];
+  const isHostType = (type: string | null) => {
+    if (!type) return false;
+    const normalizedType = type.toLowerCase().trim();
+    return normalizedType === 'host' || normalizedType === 'hosts';
+  };
+
+  const hosts = attendees?.filter((attendee) => isHostType(attendee.type)) || [];
   
-  const guests = attendees?.filter((attendee) => 
-    attendee.type?.toLowerCase() === "guest" || 
-    attendee.type?.toLowerCase() === "participant" ||
-    attendee.type?.toLowerCase() === "guests"
-  ) || [];
+  const guests = attendees?.filter((attendee) => !isHostType(attendee.type)) || [];
 
   return (
     <div className="min-h-screen bg-[#fdfdf7]">
