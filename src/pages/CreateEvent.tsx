@@ -84,7 +84,7 @@ const CreateEvent = () => {
               required
             />
             <p className="text-sm text-muted-foreground">
-              Sheet should contain columns: Name, Headline, LinkedIn Link, Type (Guest/Host)
+              Sheet should contain columns: Name, Headline, LinkedIn Link, Type (Guest/Host), Image URL (Google Drive sharing link)
             </p>
           </div>
 
