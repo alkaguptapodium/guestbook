@@ -1,8 +1,5 @@
-import { useState } from "react";
 import { EventHeader } from "@/components/EventHeader";
 import { AttendeeCard } from "@/components/AttendeeCard";
-import { LoginForm } from "@/components/LoginForm";
-import { Button } from "@/components/ui/button";
 import { Users, Crown } from "lucide-react";
 
 // Mock data - in a real app, this would come from your backend
@@ -42,8 +39,6 @@ const eventData = {
 };
 
 const Index = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   return (
     <div className="min-h-screen bg-background">
       <EventHeader
@@ -54,47 +49,41 @@ const Index = () => {
       />
       
       <main className="container py-12">
-        {!isLoggedIn ? (
-          <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg border border-border animate-fadeIn">
-            <LoginForm />
-          </div>
-        ) : (
-          <div className="space-y-16 animate-fadeIn">
-            {/* Hosts Section */}
-            <section>
-              <div className="flex items-center gap-2 mb-8">
-                <Crown className="w-6 h-6 text-podium-gold" />
-                <h2 className="font-playfair text-3xl font-semibold">Hosts</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {eventData.hosts.map((host, index) => (
-                  <AttendeeCard
-                    key={index}
-                    {...host}
-                    isMemberView={isLoggedIn}
-                  />
-                ))}
-              </div>
-            </section>
+        <div className="space-y-16 animate-fadeIn">
+          {/* Hosts Section */}
+          <section>
+            <div className="flex items-center gap-2 mb-8">
+              <Crown className="w-6 h-6 text-podium-gold" />
+              <h2 className="font-playfair text-3xl font-semibold">Hosts</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {eventData.hosts.map((host, index) => (
+                <AttendeeCard
+                  key={index}
+                  {...host}
+                  isMemberView={false}
+                />
+              ))}
+            </div>
+          </section>
 
-            {/* Participants Section */}
-            <section>
-              <div className="flex items-center gap-2 mb-8">
-                <Users className="w-6 h-6 text-podium-dark" />
-                <h2 className="font-playfair text-3xl font-semibold">Participants</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {eventData.participants.map((participant, index) => (
-                  <AttendeeCard
-                    key={index}
-                    {...participant}
-                    isMemberView={isLoggedIn}
-                  />
-                ))}
-              </div>
-            </section>
-          </div>
-        )}
+          {/* Participants Section */}
+          <section>
+            <div className="flex items-center gap-2 mb-8">
+              <Users className="w-6 h-6 text-podium-dark" />
+              <h2 className="font-playfair text-3xl font-semibold">Participants</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {eventData.participants.map((participant, index) => (
+                <AttendeeCard
+                  key={index}
+                  {...participant}
+                  isMemberView={false}
+                />
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
     </div>
   );
