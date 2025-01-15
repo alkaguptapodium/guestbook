@@ -1,12 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { EventHeader } from "@/components/EventHeader";
 import { Navigation } from "@/components/Navigation";
 import { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { HostsSection } from "@/components/event/HostsSection";
 import { GuestsSection } from "@/components/event/GuestsSection";
+import { EventDetails } from "@/components/event/EventDetails";
 
 const EventView = () => {
   const { slug } = useParams();
@@ -60,7 +60,7 @@ const EventView = () => {
         .from("attendees")
         .select("*")
         .eq("event_id", event.id)
-        .order('name');  // Order by name alphabetically at the database level
+        .order('name');
 
       if (error) {
         console.error('Error fetching attendees:', error);
@@ -112,31 +112,29 @@ const EventView = () => {
     );
   }
 
+  // Explicitly check for host type, including variations
   const isHostType = (type: string | null): boolean => {
     if (!type) return false;
     const normalizedType = type.toLowerCase().trim();
-    return normalizedType === 'host' || normalizedType === 'hosts';
+    return ['host', 'hosts', 'Host', 'Hosts'].includes(normalizedType);
   };
 
   const hosts = attendees?.filter(attendee => isHostType(attendee.type)) || [];
   const guests = attendees?.filter(attendee => !isHostType(attendee.type)) || [];
 
+  console.log('Hosts:', hosts); // Debug log to verify hosts are being identified
+  console.log('Guests:', guests); // Debug log to verify guests are being identified
+
   return (
     <div className="min-h-screen bg-[#fdfdf7]">
       <Navigation />
-      <EventHeader
-        title={event?.name || ""}
-        date={new Date(event?.created_at || "").toLocaleDateString()}
-        location=""
-        imageUrl={event?.image_url || ""}
-        description={event?.description}
-      />
+      <EventDetails event={event} />
       
       <main className="container px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fadeIn">
           <div className="lg:col-span-3 space-y-12">
-            {hosts.length > 0 && <HostsSection hosts={hosts} />}
-            {guests.length > 0 && <GuestsSection guests={guests} />}
+            <HostsSection hosts={hosts} />
+            <GuestsSection guests={guests} />
           </div>
         </div>
       </main>
