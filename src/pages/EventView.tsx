@@ -1,132 +1,75 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Navigation } from "@/components/Navigation";
-import { useEffect } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { EventDetails } from "@/components/event/EventDetails";
 import { HostsSection } from "@/components/event/HostsSection";
 import { GuestsSection } from "@/components/event/GuestsSection";
-import { EventDetails } from "@/components/event/EventDetails";
+import { Navigation } from "@/components/Navigation";
+import { Database } from "@/integrations/supabase/types";
+
+type Event = Database['public']['Tables']['events']['Row'];
+type Attendee = Database['public']['Tables']['attendees']['Row'];
 
 const EventView = () => {
-  const { slug } = useParams();
-  const navigate = useNavigate();
-  const { toast } = useToast();
+  const { slug } = useParams<{ slug: string }>();
 
-  useEffect(() => {
-    if (!slug) {
-      toast({
-        variant: "destructive",
-        title: "Invalid Event",
-        description: "No event slug provided. Redirecting to home page...",
-      });
-      navigate("/");
-    }
-  }, [slug, navigate, toast]);
-
-  const { data: event, isError: eventError } = useQuery({
-    queryKey: ["event", slug],
+  const { data: event, isLoading: eventLoading } = useQuery({
+    queryKey: ['event', slug],
     queryFn: async () => {
-      if (!slug) throw new Error("No event slug provided");
-      console.log('Fetching event with slug:', slug);
-      
       const { data, error } = await supabase
-        .from("events")
-        .select("*")
-        .eq("slug", slug)
-        .maybeSingle();
+        .from('events')
+        .select('*')
+        .eq('slug', slug)
+        .single();
 
-      if (error) {
-        console.error('Error fetching event:', error);
-        throw error;
-      }
-      
-      if (!data) {
-        throw new Error("Event not found");
-      }
-      
-      return data;
+      if (error) throw error;
+      return data as Event;
     },
-    enabled: Boolean(slug),
   });
 
-  const { data: attendees, isError: attendeesError } = useQuery({
-    queryKey: ["attendees", event?.id],
+  const { data: attendees, isLoading: attendeesLoading } = useQuery({
+    queryKey: ['attendees', event?.id],
+    enabled: !!event?.id,
     queryFn: async () => {
-      if (!event?.id) throw new Error("No event ID available");
-      console.log('Fetching attendees for event:', event.id);
-      
       const { data, error } = await supabase
-        .from("attendees")
-        .select("*")
-        .eq("event_id", event.id)
-        .order('name');
+        .from('attendees')
+        .select('*')
+        .eq('event_id', event.id);
 
-      if (error) {
-        console.error('Error fetching attendees:', error);
-        throw error;
-      }
-      return data;
+      if (error) throw error;
+      return data as Attendee[];
     },
-    enabled: Boolean(event?.id),
   });
 
-  useEffect(() => {
-    if (event?.name) {
-      document.title = event.name;
-    }
-    return () => {
-      document.title = "Podium";
-    };
-  }, [event?.name]);
-
-  useEffect(() => {
-    if (eventError || attendeesError) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to load event data. Please try again later.",
-      });
-    }
-  }, [eventError, attendeesError, toast]);
-
-  if (!event && !eventError) {
+  if (eventLoading || attendeesLoading) {
     return (
-      <div className="min-h-screen bg-[#fdfdf7]">
-        <Navigation />
-        <div className="container mx-auto px-4 py-12 text-center">
-          Loading...
-        </div>
+      <div className="min-h-screen bg-[#fdfdf7] flex items-center justify-center">
+        <div className="animate-pulse text-2xl text-podium-dark">Loading...</div>
       </div>
     );
   }
 
-  if (eventError || !event) {
+  if (!event) {
     return (
-      <div className="min-h-screen bg-[#fdfdf7]">
-        <Navigation />
-        <div className="container mx-auto px-4 py-12 text-center">
-          Event not found
-        </div>
+      <div className="min-h-screen bg-[#fdfdf7] flex items-center justify-center">
+        <div className="text-2xl text-podium-dark">Event not found</div>
       </div>
     );
   }
 
   // Pass all attendees to both sections and let them handle their own filtering
-  console.log('Hosts:', attendees?.filter(a => a.type === 'Host')); // Debug log
-  console.log('Guests:', attendees?.filter(a => a.type === 'Guest')); // Debug log
+  console.log('All attendees:', attendees);
+  console.log('Hosts:', attendees?.filter(a => a.type === 'Host'));
+  console.log('Guests:', attendees?.filter(a => a.type === 'Guest'));
 
   return (
     <div className="min-h-screen bg-[#fdfdf7]">
       <Navigation />
       <EventDetails event={event} />
-      
-      <main className="container px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fadeIn">
-          <div className="lg:col-span-3 space-y-12">
-            <HostsSection hosts={attendees || []} />
-            <GuestsSection guests={attendees || []} />
-          </div>
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="space-y-16 animate-fadeIn">
+          <HostsSection hosts={attendees || []} />
+          <GuestsSection guests={attendees || []} />
         </div>
       </main>
     </div>

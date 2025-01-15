@@ -9,7 +9,7 @@ interface GuestsSectionProps {
 }
 
 export const GuestsSection = ({ guests }: GuestsSectionProps) => {
-  console.log('Rendering GuestsSection with guests:', guests); // Debug log
+  console.log('Rendering GuestsSection with guests:', guests);
 
   // Filter attendees to only show guests with exact match
   const guestAttendees = guests.filter(attendee => {
@@ -25,14 +25,14 @@ export const GuestsSection = ({ guests }: GuestsSectionProps) => {
 
   return (
     <section>
-      <div className="flex items-center gap-2 mb-6">
-        <Users className="w-6 h-6" />
-        <h2 className="font-['Inter'] text-2xl font-semibold uppercase">Guests</h2>
+      <div className="flex items-center gap-2 mb-8">
+        <Users className="w-6 h-6 text-podium-dark" />
+        <h2 className="font-['Inter'] text-3xl font-semibold uppercase">Guests</h2>
       </div>
       {sortedGuests.length === 0 ? (
         <p className="text-muted-foreground text-center py-4">No guests found for this event</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {sortedGuests.map((guest) => (
             <AttendeeCard
               key={guest.id}
