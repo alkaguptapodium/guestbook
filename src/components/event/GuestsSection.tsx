@@ -11,10 +11,8 @@ interface GuestsSectionProps {
 export const GuestsSection = ({ guests }: GuestsSectionProps) => {
   console.log('Rendering GuestsSection with guests:', guests); // Debug log
 
-  // Filter attendees to only show guests with case-insensitive comparison
-  const guestAttendees = guests.filter(attendee => 
-    attendee.type?.toLowerCase().trim() === 'guest'
-  );
+  // Filter attendees to only show guests with exact match
+  const guestAttendees = guests.filter(attendee => attendee.type === 'Guest');
 
   // Sort guests alphabetically by name
   const sortedGuests = [...guestAttendees].sort((a, b) => 
