@@ -32,10 +32,11 @@ function normalizeType(type: string): 'Host' | 'Guest' {
   const normalizedType = type.trim().toLowerCase();
   
   // Log the type normalization process
-  console.log('Normalizing type:', {
+  console.log('Type normalization:', {
     original: type,
     trimmed: type.trim(),
     lowercase: normalizedType,
+    final: normalizedType.includes('host') ? 'Host' : 'Guest'
   });
   
   // Check if the normalized string includes 'host' anywhere
@@ -53,11 +54,16 @@ export const processCSV = async (file: File): Promise<Attendee[]> => {
       header: true,
       complete: async (results) => {
         try {
+          console.log('CSV Raw Data:', results.data);
+          
           const attendeesPromises = results.data.map(async (row: any) => {
+            // Log the raw row data
+            console.log('Processing CSV row:', row);
+            
             // Normalize the type field
             const normalizedType = normalizeType(row.Type || "");
             
-            console.log(`Processing CSV row for ${row.Name}:`, {
+            console.log(`Processing attendee ${row.Name}:`, {
               originalType: row.Type,
               normalizedType: normalizedType
             });
@@ -78,6 +84,9 @@ export const processCSV = async (file: File): Promise<Attendee[]> => {
               type: normalizedType,
               image_url: imageUrl,
             };
+            
+            // Log the final attendee object
+            console.log('Final attendee object:', attendee);
             
             return attendee;
           });
