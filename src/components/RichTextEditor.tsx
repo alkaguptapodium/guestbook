@@ -2,6 +2,7 @@ import { type Editor } from '@tiptap/react'
 import { Bold, Italic, Underline, Link } from "lucide-react"
 import { Toggle } from "@/components/ui/toggle"
 import { Button } from "@/components/ui/button"
+import { EditorContent } from '@tiptap/react'
 import {
   Popover,
   PopoverContent,
@@ -79,14 +80,8 @@ export function RichTextEditor({ editor }: RichTextEditorProps) {
           </PopoverContent>
         </Popover>
       </div>
-      <div 
-        className="prose prose-sm max-w-none p-3 min-h-[150px]"
-        onClick={() => editor.chain().focus()}
-      >
-        <div 
-          className="outline-none"
-          dangerouslySetInnerHTML={{ __html: editor.getHTML() }}
-        />
+      <div className="prose prose-sm max-w-none p-3 min-h-[150px]">
+        <EditorContent editor={editor} className="outline-none" />
       </div>
     </div>
   )
