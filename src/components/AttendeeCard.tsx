@@ -15,8 +15,8 @@ interface AttendeeCardProps {
 const convertImageUrl = (url: string): string => {
   console.log('Converting URL:', url);
   
-  if (!url) {
-    console.log('Empty URL, using placeholder');
+  if (!url || url === '') {
+    console.log('Empty or invalid URL, using placeholder');
     return "/placeholder.svg";
   }
   
@@ -27,24 +27,24 @@ const convertImageUrl = (url: string): string => {
     const fileId = url.match(/[-\w]{25,}/);
     if (fileId) {
       const convertedUrl = `https://drive.google.com/uc?export=view&id=${fileId[0]}`;
-      console.log('Converted to:', convertedUrl);
+      console.log('Converted Google Drive URL to:', convertedUrl);
       return convertedUrl;
     }
   }
   
   // If it's a relative URL (starts with /)
   if (url.startsWith('/')) {
-    console.log('Using relative URL as is');
+    console.log('Using relative URL:', url);
     return url;
   }
   
   // If it's already a full URL
   if (url.startsWith('http')) {
-    console.log('Using full URL as is');
+    console.log('Using full URL:', url);
     return url;
   }
   
-  console.log('Using original URL:', url);
+  console.log('URL format not recognized, using as is:', url);
   return url;
 };
 
@@ -62,18 +62,20 @@ export const AttendeeCard = ({
       <div className="aspect-square overflow-hidden bg-gray-100">
         <img
           src={convertImageUrl(imageUrl)}
-          alt={name}
+          alt={`Profile photo of ${name}`}
           className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
           onError={(e) => {
+            const target = e.target as HTMLImageElement;
             console.error('Image failed to load:', {
               originalUrl: imageUrl,
-              convertedUrl: (e.target as HTMLImageElement).src,
+              convertedUrl: target.src,
               name: name,
               error: e
             });
-            const target = e.target as HTMLImageElement;
             target.src = "/placeholder.svg";
+            target.onerror = null; // Prevent infinite loop if placeholder also fails
           }}
+          loading="lazy"
         />
       </div>
       <div className="p-4">
