@@ -1,6 +1,7 @@
 import { Crown } from "lucide-react";
 import { AttendeeCard } from "@/components/AttendeeCard";
 import { Database } from "@/integrations/supabase/types";
+import { memo } from "react";
 
 type Attendee = Database['public']['Tables']['attendees']['Row'];
 
@@ -8,15 +9,9 @@ interface HostsSectionProps {
   hosts: Attendee[];
 }
 
-export const HostsSection = ({ hosts }: HostsSectionProps) => {
-  console.log('Rendering HostsSection with all attendees:', hosts);
-  
+export const HostsSection = memo(({ hosts }: HostsSectionProps) => {
   // Filter attendees to show only hosts with exact match for "Host"
-  const hostAttendees = hosts.filter(attendee => {
-    const isHost = attendee.type === 'Host';
-    console.log(`Checking attendee ${attendee.name}: type=${attendee.type}, isHost=${isHost}`);
-    return isHost;
-  });
+  const hostAttendees = hosts.filter(attendee => attendee.type === 'Host');
 
   // Sort hosts alphabetically by name
   const sortedHosts = [...hostAttendees].sort((a, b) => 
@@ -49,4 +44,6 @@ export const HostsSection = ({ hosts }: HostsSectionProps) => {
       )}
     </section>
   );
-};
+});
+
+HostsSection.displayName = 'HostsSection';

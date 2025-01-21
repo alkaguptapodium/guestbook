@@ -1,5 +1,6 @@
 import { CalendarDays } from "lucide-react";
 import { format } from "date-fns";
+import { memo } from "react";
 
 interface EventHeaderProps {
   title: string;
@@ -9,7 +10,7 @@ interface EventHeaderProps {
   description?: string;
 }
 
-export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderProps) => {
+export const EventHeader = memo(({ title, date, imageUrl, description }: EventHeaderProps) => {
   // Parse and format the date string
   const formattedDate = format(new Date(date), "EEEE, MMMM d");
 
@@ -21,6 +22,8 @@ export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderP
           src={imageUrl}
           alt={title}
           className="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
         />
         <div className="relative z-20 container h-full flex flex-col justify-center items-center text-white text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-uncut mb-4 animate-fadeIn uppercase">
@@ -59,4 +62,6 @@ export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderP
       </div>
     </>
   );
-};
+});
+
+EventHeader.displayName = 'EventHeader';

@@ -12,24 +12,9 @@ import { format } from "date-fns";
 type Event = Database['public']['Tables']['events']['Row'];
 type Attendee = Database['public']['Tables']['attendees']['Row'];
 
-const ExperienceView = () => {
+const EventView = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-
-  // Query to fetch all events
-  const { data: allEvents, isLoading: eventsLoading } = useQuery({
-    queryKey: ['events'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('events')
-        .select('*')
-        .order('event_date', { ascending: false });
-
-      if (error) throw error;
-      console.log('Fetched events:', data);
-      return data as Event[];
-    },
-  });
 
   // Query to fetch specific event if slug is provided
   const { data: event, isLoading: eventLoading } = useQuery({
@@ -45,6 +30,7 @@ const ExperienceView = () => {
       if (error) throw error;
       return data as Event | null;
     },
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
   });
 
   const { data: attendees, isLoading: attendeesLoading } = useQuery({
@@ -59,9 +45,10 @@ const ExperienceView = () => {
       if (error) throw error;
       return data as Attendee[];
     },
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
   });
 
-  if (eventsLoading || (slug && (eventLoading || attendeesLoading))) {
+  if (eventLoading || attendeesLoading) {
     return (
       <div className="min-h-screen bg-[#fdfdf7] flex items-center justify-center">
         <div className="animate-pulse text-2xl text-podium-dark">Loading...</div>
@@ -69,55 +56,6 @@ const ExperienceView = () => {
     );
   }
 
-  // If no slug is provided or we're on the main events route, show the events grid
-  if (!slug) {
-    return (
-      <div className="min-h-screen bg-[#fdfdf7]">
-        <Navigation />
-        <main className="container mx-auto px-4 py-12">
-          <h1 className="text-4xl font-bold text-center mb-12">All Experiences</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {(!allEvents || allEvents.length === 0) ? (
-              <div className="col-span-full text-center text-gray-500">
-                No experiences found. Create your first experience to get started.
-              </div>
-            ) : (
-              allEvents.map((event) => (
-                <Card 
-                  key={event.id} 
-                  className="cursor-pointer hover:shadow-lg transition-shadow"
-                  onClick={() => navigate(`/experience/${event.slug}`)}
-                >
-                  <CardContent className="p-6">
-                    {event.image_url && (
-                      <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
-                        <img 
-                          src={event.image_url} 
-                          alt={event.name}
-                          className="object-cover w-full h-full"
-                        />
-                      </div>
-                    )}
-                    <h2 className="text-xl font-semibold mb-2">{event.name}</h2>
-                    <p className="text-sm text-gray-600 mb-2">
-                      {format(new Date(event.event_date), 'PPP')}
-                    </p>
-                    {event.description && (
-                      <p className="text-sm text-gray-600 line-clamp-2">
-                        {event.description.replace(/<[^>]*>/g, '')}
-                      </p>
-                    )}
-                  </CardContent>
-                </Card>
-              ))
-            )}
-          </div>
-        </main>
-      </div>
-    );
-  }
-
-  // Show event details if slug is provided but event not found
   if (!event) {
     return (
       <div className="min-h-screen bg-[#fdfdf7]">
@@ -144,4 +82,4 @@ const ExperienceView = () => {
   );
 };
 
-export default ExperienceView;
+export default EventView;

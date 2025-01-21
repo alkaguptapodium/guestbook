@@ -1,6 +1,7 @@
 import { Users } from "lucide-react";
 import { AttendeeCard } from "@/components/AttendeeCard";
 import { Database } from "@/integrations/supabase/types";
+import { memo } from "react";
 
 type Attendee = Database['public']['Tables']['attendees']['Row'];
 
@@ -8,15 +9,9 @@ interface GuestsSectionProps {
   guests: Attendee[];
 }
 
-export const GuestsSection = ({ guests }: GuestsSectionProps) => {
-  console.log('Rendering GuestsSection with guests:', guests);
-  
+export const GuestsSection = memo(({ guests }: GuestsSectionProps) => {
   // Filter attendees to show only guests with exact match for "Guest"
-  const guestAttendees = guests.filter(attendee => {
-    const isGuest = attendee.type === 'Guest';
-    console.log(`Checking attendee ${attendee.name}: type=${attendee.type}, isGuest=${isGuest}`);
-    return isGuest;
-  });
+  const guestAttendees = guests.filter(attendee => attendee.type === 'Guest');
 
   // Sort guests alphabetically by name
   const sortedGuests = [...guestAttendees].sort((a, b) => 
@@ -49,4 +44,6 @@ export const GuestsSection = ({ guests }: GuestsSectionProps) => {
       )}
     </section>
   );
-};
+});
+
+GuestsSection.displayName = 'GuestsSection';
