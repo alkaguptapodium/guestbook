@@ -31,11 +31,11 @@
   }
 
   body {
-    @apply bg-[#fdfdf7] text-foreground font-['Inter'];
+    @apply bg-[#fdfdf7] text-foreground font-inter;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-['Uncut Sans'] uppercase;
+    @apply font-uncut uppercase;
   }
 
   a {
