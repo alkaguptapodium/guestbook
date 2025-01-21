@@ -36,7 +36,7 @@ export const AttendeeCard = ({
   console.log('Rendering AttendeeCard with type:', type);
 
   return (
-    <Card className="overflow-hidden animate-fadeIn text-center">
+    <Card className="overflow-hidden animate-fadeIn text-center mx-auto max-w-sm">
       <div className="aspect-square overflow-hidden bg-gray-100">
         <Avatar className="w-full h-full rounded-none">
           <AvatarImage
