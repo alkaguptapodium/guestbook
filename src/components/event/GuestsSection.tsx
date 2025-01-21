@@ -32,7 +32,7 @@ export const GuestsSection = ({ guests }: GuestsSectionProps) => {
       {sortedGuests.length === 0 ? (
         <p className="text-muted-foreground text-center py-4">No guests found for this event</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 justify-items-center">
           {sortedGuests.map((guest) => (
             <AttendeeCard
               key={guest.id}
