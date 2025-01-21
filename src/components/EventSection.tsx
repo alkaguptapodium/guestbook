@@ -22,7 +22,7 @@ export const EventSection = ({ title, icon, attendees }: EventSectionProps) => {
     <section>
       <div className="flex items-center gap-2 mb-8">
         {icon === "host" ? (
-          <Crown className="w-6 h-6 text-podium-gold" />
+          <Crown className="w-6 h-6 text-podium-dark" />
         ) : (
           <Users className="w-6 h-6 text-podium-dark" />
         )}
