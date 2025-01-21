@@ -7,6 +7,11 @@ import { FileUpload } from "./FileUpload";
 import { Editor } from "@tiptap/react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 interface EventFormProps {
   eventName: string;
@@ -18,6 +23,8 @@ interface EventFormProps {
   editor: Editor | null;
   isLoading: boolean;
   onSubmit: (e: React.FormEvent) => void;
+  eventDate: Date;
+  setEventDate: (date: Date) => void;
 }
 
 export const EventForm = ({
@@ -30,6 +37,8 @@ export const EventForm = ({
   editor,
   isLoading,
   onSubmit,
+  eventDate,
+  setEventDate,
 }: EventFormProps) => {
   const { toast } = useToast();
 
@@ -78,6 +87,32 @@ export const EventForm = ({
           placeholder="Future of Tech Leadership"
           required
         />
+      </div>
+
+      <div className="space-y-2">
+        <Label>Event Date</Label>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full justify-start text-left font-normal",
+                !eventDate && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {eventDate ? format(eventDate, "PPP") : <span>Pick a date</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={eventDate}
+              onSelect={(date) => date && setEventDate(date)}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
       </div>
 
       <FileUpload

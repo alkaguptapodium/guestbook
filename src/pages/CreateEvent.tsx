@@ -23,6 +23,7 @@ const CreateEvent = () => {
   const [eventName, setEventName] = useState("");
   const [eventImage, setEventImage] = useState<File | null>(null);
   const [csvFile, setCsvFile] = useState<File | null>(null);
+  const [eventDate, setEventDate] = useState<Date>(new Date());
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -117,7 +118,8 @@ const CreateEvent = () => {
           image_url: publicUrl,
           description: editor?.getHTML() || "",
           sheet_url: "", // We keep this for backwards compatibility
-          slug: slug, // Add the slug
+          slug: slug,
+          event_date: eventDate.toISOString(),
         })
         .select()
         .single();
@@ -180,6 +182,8 @@ const CreateEvent = () => {
           editor={editor}
           isLoading={isLoading}
           onSubmit={handleSubmit}
+          eventDate={eventDate}
+          setEventDate={setEventDate}
         />
 
         {/* Past Events Section */}

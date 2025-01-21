@@ -12,7 +12,7 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
     <>
       <EventHeader
         title={event?.name || ""}
-        date={new Date(event?.created_at || "").toLocaleDateString()}
+        date={event?.event_date || event?.created_at}
         location=""
         imageUrl={event?.image_url || ""}
         description={event?.description}
