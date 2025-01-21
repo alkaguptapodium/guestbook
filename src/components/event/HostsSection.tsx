@@ -24,7 +24,7 @@ export const HostsSection = ({ hosts }: HostsSectionProps) => {
   );
 
   return (
-    <section>
+    <section className="flex flex-col items-center">
       <div className="flex items-center gap-2 mb-8 justify-center">
         <Crown className="w-6 h-6 text-podium-gold" />
         <h2 className="font-['Inter'] text-3xl font-semibold uppercase">Hosts</h2>
@@ -32,7 +32,7 @@ export const HostsSection = ({ hosts }: HostsSectionProps) => {
       {sortedHosts.length === 0 ? (
         <p className="text-muted-foreground text-center py-4">No hosts found for this event</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto px-4 place-items-center">
           {sortedHosts.map((host) => (
             <AttendeeCard
               key={host.id}
