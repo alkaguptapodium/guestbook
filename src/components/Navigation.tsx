@@ -4,7 +4,7 @@ export const Navigation = () => {
   return (
     <nav className="w-full bg-[#fdfdf7] border-b border-gray-200">
       <div className="container px-4 mx-auto">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
           <a href="https://www.podiumsociety.com/" className="flex items-center">
             <img
@@ -18,21 +18,21 @@ export const Navigation = () => {
           <div className="flex items-center space-x-4 md:space-x-8">
             <a
               href="https://www.podiumsociety.com/"
-              className="flex items-center text-sm md:text-base text-black hover:text-black/80 transition-colors"
+              className="flex items-center text-sm md:text-base text-black hover:text-black/80 transition-colors py-2"
             >
               <Circle className="w-2 h-2 mr-2" style={{ fill: '#c4cd23', color: '#c4cd23' }} />
               Membership
             </a>
             <a
               href="https://www.podiumsociety.com/retreat"
-              className="flex items-center text-sm md:text-base text-black hover:text-black/80 transition-colors"
+              className="flex items-center text-sm md:text-base text-black hover:text-black/80 transition-colors py-2"
             >
               <Circle className="w-2 h-2 mr-2" style={{ fill: '#c4cd23', color: '#c4cd23' }} />
               Retreat
             </a>
             <a
               href="https://www.podiumsociety.com/about"
-              className="flex items-center text-sm md:text-base text-black hover:text-black/80 transition-colors"
+              className="flex items-center text-sm md:text-base text-black hover:text-black/80 transition-colors py-2"
             >
               <Circle className="w-2 h-2 mr-2" style={{ fill: '#c4cd23', color: '#c4cd23' }} />
               About
