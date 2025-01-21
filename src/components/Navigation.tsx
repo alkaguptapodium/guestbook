@@ -18,21 +18,21 @@ export const Navigation = () => {
           <div className="flex items-center space-x-8">
             <a
               href="https://www.podiumsociety.com/"
-              className="flex items-center text-[#d66e33] hover:text-[#d66e33]/80 transition-colors"
+              className="flex items-center text-black hover:text-black/80 transition-colors"
             >
               <Circle className="w-2 h-2 mr-2" style={{ fill: '#c4cd23', color: '#c4cd23' }} />
               Membership
             </a>
             <a
               href="https://www.podiumsociety.com/retreat"
-              className="flex items-center text-[#d66e33] hover:text-[#d66e33]/80 transition-colors"
+              className="flex items-center text-black hover:text-black/80 transition-colors"
             >
               <Circle className="w-2 h-2 mr-2" style={{ fill: '#c4cd23', color: '#c4cd23' }} />
               Retreat
             </a>
             <a
               href="https://www.podiumsociety.com/about"
-              className="flex items-center text-[#d66e33] hover:text-[#d66e33]/80 transition-colors"
+              className="flex items-center text-black hover:text-black/80 transition-colors"
             >
               <Circle className="w-2 h-2 mr-2" style={{ fill: '#c4cd23', color: '#c4cd23' }} />
               About
