@@ -38,7 +38,7 @@ export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderP
           {description ? (
             <div 
               dangerouslySetInnerHTML={{ __html: description }} 
-              className="text-lg text-podium-dark [&_p]:mb-8 last:[&_p]:mb-0 [&_a]:text-[#d66e33] [&_a]:hover:text-[#d66e33]/80 font-uncut" 
+              className="text-base text-podium-dark [&_p]:mb-6 last:[&_p]:mb-0 [&_a]:text-[#d66e33] [&_a]:hover:text-[#d66e33]/80 font-uncut" 
             />
           ) : (
             <>
