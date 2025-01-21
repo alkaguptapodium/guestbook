@@ -26,6 +26,7 @@ const EventView = () => {
         .order('event_date', { ascending: true });
 
       if (error) throw error;
+      console.log('Fetched events:', data);
       return data as Event[];
     },
   });
@@ -68,7 +69,7 @@ const EventView = () => {
     );
   }
 
-  // If no slug is provided, show the events grid
+  // If no slug is provided or we're on the main events route, show the events grid
   if (!slug) {
     return (
       <div className="min-h-screen bg-[#fdfdf7]">
@@ -76,34 +77,40 @@ const EventView = () => {
         <main className="container mx-auto px-4 py-12">
           <h1 className="text-4xl font-bold text-center mb-12">All Events</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {allEvents?.map((event) => (
-              <Card 
-                key={event.id} 
-                className="cursor-pointer hover:shadow-lg transition-shadow"
-                onClick={() => navigate(`/event/${event.slug}`)}
-              >
-                <CardContent className="p-6">
-                  {event.image_url && (
-                    <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
-                      <img 
-                        src={event.image_url} 
-                        alt={event.name}
-                        className="object-cover w-full h-full"
-                      />
-                    </div>
-                  )}
-                  <h2 className="text-xl font-semibold mb-2">{event.name}</h2>
-                  <p className="text-sm text-gray-600 mb-2">
-                    {format(new Date(event.event_date), 'PPP')}
-                  </p>
-                  {event.description && (
-                    <p className="text-sm text-gray-600 line-clamp-2">
-                      {event.description}
+            {(!allEvents || allEvents.length === 0) ? (
+              <div className="col-span-full text-center text-gray-500">
+                No events found. Create your first event to get started.
+              </div>
+            ) : (
+              allEvents.map((event) => (
+                <Card 
+                  key={event.id} 
+                  className="cursor-pointer hover:shadow-lg transition-shadow"
+                  onClick={() => navigate(`/event/${event.slug}`)}
+                >
+                  <CardContent className="p-6">
+                    {event.image_url && (
+                      <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
+                        <img 
+                          src={event.image_url} 
+                          alt={event.name}
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
+                    )}
+                    <h2 className="text-xl font-semibold mb-2">{event.name}</h2>
+                    <p className="text-sm text-gray-600 mb-2">
+                      {format(new Date(event.event_date), 'PPP')}
                     </p>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
+                    {event.description && (
+                      <p className="text-sm text-gray-600 line-clamp-2">
+                        {event.description}
+                      </p>
+                    )}
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </main>
       </div>
