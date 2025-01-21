@@ -36,7 +36,7 @@ export const AttendeeCard = ({
   console.log('Rendering AttendeeCard with type:', type);
 
   return (
-    <Card className="overflow-hidden animate-fadeIn">
+    <Card className="overflow-hidden animate-fadeIn mx-auto max-w-sm">
       <div className="aspect-square overflow-hidden bg-gray-100">
         <Avatar className="w-full h-full rounded-none">
           <AvatarImage
@@ -53,8 +53,8 @@ export const AttendeeCard = ({
           </AvatarFallback>
         </Avatar>
       </div>
-      <div className="p-4 space-y-2">
-        <div className="flex items-center justify-between">
+      <div className="p-4 space-y-2 text-center">
+        <div className="flex items-center justify-center gap-2">
           <h3 className="font-uncut text-xl uppercase">{name}</h3>
           {linkedIn && (
             <Button
