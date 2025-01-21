@@ -25,9 +25,9 @@ export const GuestsSection = ({ guests }: GuestsSectionProps) => {
 
   return (
     <section>
-      <div className="flex items-center gap-2 mb-8">
-        <Users className="w-6 h-6 text-podium-gold" />
-        <h2 className="font-['Inter'] text-3xl font-semibold uppercase">Guests</h2>
+      <div className="flex flex-col items-center gap-2 mb-12">
+        <Users className="w-8 h-8 text-podium-dark mb-2" />
+        <h2 className="font-uncut text-4xl font-semibold uppercase text-center">Guests</h2>
       </div>
       {sortedGuests.length === 0 ? (
         <p className="text-muted-foreground text-center py-4">No guests found for this event</p>
