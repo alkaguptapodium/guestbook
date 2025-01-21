@@ -32,7 +32,7 @@ export const Navigation = () => {
             </a>
             <a
               href="https://www.podiumsociety.com/about"
-              className="flex items-center text-xs md:text-base text-black hover:text-black/80 transition-colors py-2"
+              className="hidden md:flex items-center text-xs md:text-base text-black hover:text-black/80 transition-colors py-2"
             >
               <Circle className="w-1.5 h-1.5 md:w-2 md:h-2 mr-1.5 md:mr-2" style={{ fill: '#c4cd23', color: '#c4cd23' }} />
               About
