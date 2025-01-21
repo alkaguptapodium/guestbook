@@ -24,7 +24,7 @@ export const GuestsSection = ({ guests }: GuestsSectionProps) => {
   );
 
   return (
-    <section>
+    <section className="container mx-auto px-4 max-w-7xl">
       <div className="flex flex-col items-center gap-2 mb-12">
         <Users className="w-8 h-8 text-podium-dark mb-2" />
         <h2 className="font-uncut text-4xl font-semibold uppercase text-center">Guests</h2>
