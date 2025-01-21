@@ -1,24 +1,44 @@
-import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
-import { useMobile } from "@/hooks/use-mobile";
+import { Circle } from "lucide-react";
 
 export const Navigation = () => {
-  const isMobile = useMobile();
-
   return (
-    <nav className="w-full bg-white border-b">
-      <div className="flex items-center justify-between h-16 max-w-7xl mx-auto px-4">
-        <Link to="/" className="text-black font-medium">
-          Connectopia
-        </Link>
-        {!isMobile && (
-          <div className="flex items-center space-x-4">
-            <Link to="/events" className="text-black hover:text-black/80">
-              Events
-            </Link>
-            <Button>Sign In</Button>
+    <nav className="w-full bg-[#fdfdf7] border-b border-gray-200">
+      <div className="container px-4 mx-auto">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <a href="https://www.podiumsociety.com/" className="flex items-center">
+            <img
+              src="/lovable-uploads/505e2c61-bec6-4a53-9479-a3f7673e417f.png"
+              alt="Podium Logo"
+              className="h-8"
+            />
+          </a>
+
+          {/* Navigation Links */}
+          <div className="flex items-center space-x-8">
+            <a
+              href="https://www.podiumsociety.com/"
+              className="flex items-center text-[#d66e33] hover:text-[#d66e33]/80 transition-colors"
+            >
+              <Circle className="w-2 h-2 mr-2" style={{ fill: '#c4cd23', color: '#c4cd23' }} />
+              Membership
+            </a>
+            <a
+              href="https://www.podiumsociety.com/retreat"
+              className="flex items-center text-[#d66e33] hover:text-[#d66e33]/80 transition-colors"
+            >
+              <Circle className="w-2 h-2 mr-2" style={{ fill: '#c4cd23', color: '#c4cd23' }} />
+              Retreat
+            </a>
+            <a
+              href="https://www.podiumsociety.com/about"
+              className="flex items-center text-[#d66e33] hover:text-[#d66e33]/80 transition-colors"
+            >
+              <Circle className="w-2 h-2 mr-2" style={{ fill: '#c4cd23', color: '#c4cd23' }} />
+              About
+            </a>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
