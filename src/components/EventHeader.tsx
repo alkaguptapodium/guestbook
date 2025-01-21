@@ -38,7 +38,7 @@ export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderP
           {description ? (
             <div 
               dangerouslySetInnerHTML={{ __html: description }} 
-              className="prose prose-lg max-w-none text-podium-dark [&_p]:mb-6 last:[&_p]:mb-0 [&_a]:text-[#d66e33] [&_a]:hover:text-[#d66e33]/80 font-uncut [&_p]:whitespace-pre-wrap" 
+              className="prose prose-lg max-w-none text-podium-dark [&_p]:mb-6 last:[&_p]:mb-0 [&_a]:text-[#d66e33] [&_a]:hover:text-[#d66e33]/80 font-uncut" 
             />
           ) : (
             <>
@@ -51,10 +51,7 @@ export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderP
               </p>
               
               <p className="text-lg text-podium-dark font-uncut">
-                ✨ Upcoming Experience ✨{"\n"}
-                Join us for our Mid Year Reset retreat in Bali with Coach Charlotte!{"\n"}
-                🌴 May 29th - June 1st, 2025{"\n"}
-                🌺 <a href="#" className="text-[#d66e33] hover:text-[#d66e33]/80">Know More</a>
+                ✨ Upcoming Experience ✨{"\n"}Join us for our Mid Year Reset retreat in Bali with Coach Charlotte!{"\n"}🌴 May 29th - June 1st, 2025{"\n"}🌺 <a href="#" className="text-[#d66e33] hover:text-[#d66e33]/80">Know More</a>
               </p>
             </>
           )}
