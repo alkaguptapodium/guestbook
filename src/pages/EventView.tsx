@@ -117,13 +117,13 @@ const EventView = () => {
     );
   }
 
-  // Show event details if slug is provided
+  // Show event details if slug is provided but event not found
   if (!event) {
     return (
       <div className="min-h-screen bg-[#fdfdf7]">
         <Navigation />
         <div className="container mx-auto px-4 py-16 text-center">
-          <h1 className="text-3xl font-semibold text-podium-dark mb-4">Event Not Found</h1>
+          <h1 className="text-3xl font-semibold text-podium-dark mb-4">EVENT NOT FOUND</h1>
           <p className="text-lg text-podium-dark/80">The event you're looking for doesn't exist or has been removed.</p>
         </div>
       </div>
