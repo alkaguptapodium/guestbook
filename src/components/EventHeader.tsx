@@ -26,7 +26,7 @@ export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderP
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-uncut mb-4 animate-fadeIn uppercase">
             {title}
           </h1>
-          <div className="flex items-center gap-2 text-lg animate-fadeIn">
+          <div className="flex items-center gap-2 text-lg animate-fadeIn font-ovo">
             <CalendarDays className="w-5 h-5" />
             <span>{formattedDate}</span>
           </div>
