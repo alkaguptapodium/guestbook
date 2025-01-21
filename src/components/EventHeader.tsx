@@ -38,25 +38,29 @@ export const EventHeader = memo(({ title, date, imageUrl, description }: EventHe
       
       <div className="container mx-auto px-4 py-12 max-w-3xl">
         <div className="space-y-8 text-left animate-fadeIn">
-          {description ? (
+          {description && (
             <div 
               dangerouslySetInnerHTML={{ __html: description }} 
               className="prose prose-lg max-w-none text-podium-dark [&_p]:mb-6 last:[&_p]:mb-0 [&_a]:text-[#d66e33] [&_a]:hover:text-[#d66e33]/80 font-uncut" 
             />
-          ) : (
-            <>
-              <p className="text-lg text-podium-dark mb-8 font-uncut">
-                Watching our space come alive as we crafted a journey together was truly special. We hope you continue to step into the vision you see for yourself in 2025. 🌟
-              </p>
-              
-              <p className="text-lg text-podium-dark mb-8 font-uncut">
-                Thanks to Juliana for opening Motion's doors for this event. As an award-winning experiential agency, creating meaningful spaces for connection and growth is core to who they are. 🌱
+          )}
+          {!description && (
+            <div className="space-y-8">
+              <p className="text-lg text-podium-dark font-uncut">
+                Watching our space come alive as we crafted a journey together was truly special. We hope you continue to step into the vision you see for yourself in 2025. ✨
               </p>
               
               <p className="text-lg text-podium-dark font-uncut">
-                ✨ Upcoming Experience ✨{"\n"}Join us for our Mid Year Reset retreat in Bali with Coach Charlotte!{"\n"}🌴 May 29th - June 1st, 2025{"\n"}🌺 <a href="#" className="text-[#d66e33] hover:text-[#d66e33]/80">Know More</a>
+                Thanks to Juliana for opening <a href="#" className="text-[#d66e33] hover:text-[#d66e33]/80">Motion's</a> doors for this event. As an award-winning experiential agency, creating meaningful spaces for connection and growth is core to who they are. 🌱
               </p>
-            </>
+              
+              <div className="text-lg text-podium-dark font-uncut space-y-2">
+                <p>✨ Upcoming Experience ✨</p>
+                <p>Join us for our Mid Year Reset retreat in Bali with Coach Charlotte!</p>
+                <p>🌴 May 29th - June 1st, 2025</p>
+                <p><a href="#" className="text-[#d66e33] hover:text-[#d66e33]/80">Know More</a></p>
+              </div>
+            </div>
           )}
         </div>
       </div>
