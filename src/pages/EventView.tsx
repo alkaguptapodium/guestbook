@@ -69,7 +69,7 @@ const ExperienceView = () => {
     );
   }
 
-  // If no slug is provided or we're on the main experiences route, show the experiences grid
+  // If no slug is provided or we're on the main events route, show the events grid
   if (!slug) {
     return (
       <div className="min-h-screen bg-[#fdfdf7]">
@@ -117,7 +117,7 @@ const ExperienceView = () => {
     );
   }
 
-  // Show experience details if slug is provided but experience not found
+  // Show event details if slug is provided but event not found
   if (!event) {
     return (
       <div className="min-h-screen bg-[#fdfdf7]">
