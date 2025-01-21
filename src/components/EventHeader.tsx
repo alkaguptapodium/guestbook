@@ -38,19 +38,19 @@ export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderP
           {description ? (
             <div 
               dangerouslySetInnerHTML={{ __html: description }} 
-              className="text-lg text-podium-dark [&_a]:text-[#d66e33] [&_a:hover]:text-[#d66e33]/80 [&_p]:mb-8 last:[&_p]:mb-0" 
+              className="text-lg text-black [&_a]:text-[#d66e33] [&_a:hover]:text-[#d66e33]/80 [&_p]:mb-8 last:[&_p]:mb-0" 
             />
           ) : (
             <>
-              <p className="text-lg text-podium-dark">
+              <p className="text-lg text-black">
                 Thanks for a soulful Saturday morning on Nov 16! We know that many of you want to meet even more women than you managed to connect with in person.
               </p>
               
-              <p className="text-lg text-podium-dark">
+              <p className="text-lg text-black">
                 So as we get our new membership up and running, we'll be building more pages like these for Podium members to use after every experience that we host. We can't wait to launch more features to enable meaningful connections between women.
               </p>
               
-              <p className="text-lg text-podium-dark">
+              <p className="text-lg text-black">
                 Scroll to see who else was in the room, and if you want to see all the photos then{" "}
                 <a href="#" className="hover:underline">click here</a>.
               </p>
