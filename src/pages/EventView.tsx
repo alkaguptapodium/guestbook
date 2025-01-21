@@ -12,7 +12,7 @@ import { format } from "date-fns";
 type Event = Database['public']['Tables']['events']['Row'];
 type Attendee = Database['public']['Tables']['attendees']['Row'];
 
-const EventView = () => {
+const ExperienceView = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
 
@@ -75,18 +75,18 @@ const EventView = () => {
       <div className="min-h-screen bg-[#fdfdf7]">
         <Navigation />
         <main className="container mx-auto px-4 py-12">
-          <h1 className="text-4xl font-bold text-center mb-12">All Events</h1>
+          <h1 className="text-4xl font-bold text-center mb-12">All Experiences</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {(!allEvents || allEvents.length === 0) ? (
               <div className="col-span-full text-center text-gray-500">
-                No events found. Create your first event to get started.
+                No experiences found. Create your first experience to get started.
               </div>
             ) : (
               allEvents.map((event) => (
                 <Card 
                   key={event.id} 
                   className="cursor-pointer hover:shadow-lg transition-shadow"
-                  onClick={() => navigate(`/event/${event.slug}`)}
+                  onClick={() => navigate(`/experience/${event.slug}`)}
                 >
                   <CardContent className="p-6">
                     {event.image_url && (
@@ -123,8 +123,8 @@ const EventView = () => {
       <div className="min-h-screen bg-[#fdfdf7]">
         <Navigation />
         <div className="container mx-auto px-4 py-16 text-center">
-          <h1 className="text-3xl font-semibold text-podium-dark mb-4">EVENT NOT FOUND</h1>
-          <p className="text-lg text-podium-dark/80">The event you're looking for doesn't exist or has been removed.</p>
+          <h1 className="text-3xl font-semibold text-podium-dark mb-4">EXPERIENCE NOT FOUND</h1>
+          <p className="text-lg text-podium-dark/80">The experience you're looking for doesn't exist or has been removed.</p>
         </div>
       </div>
     );
@@ -144,4 +144,4 @@ const EventView = () => {
   );
 };
 
-export default EventView;
+export default ExperienceView;
