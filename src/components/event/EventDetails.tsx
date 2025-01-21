@@ -15,7 +15,6 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
         date={event?.event_date || event?.created_at}
         location=""
         imageUrl={event?.image_url || ""}
-        description={event?.description}
       />
       <div className="container max-w-4xl mx-auto px-4 py-8">
         <div 
