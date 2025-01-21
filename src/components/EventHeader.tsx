@@ -43,16 +43,18 @@ export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderP
           ) : (
             <>
               <p className="text-lg text-podium-dark mb-8 font-uncut">
-                Thanks for a soulful Saturday morning on Nov 16! We know that many of you want to meet even more women than you managed to connect with in person.
+                Watching our space come alive as we crafted a journey together was truly special. We hope you continue to step into the vision you see for yourself in 2025. 🌟
               </p>
               
               <p className="text-lg text-podium-dark mb-8 font-uncut">
-                So as we get our new membership up and running, we'll be building more pages like these for Podium members to use after every experience that we host. We can't wait to launch more features to enable meaningful connections between women.
+                Thanks to Juliana for opening Motion's doors for this event. As an award-winning experiential agency, creating meaningful spaces for connection and growth is core to who they are. 🌱
               </p>
               
               <p className="text-lg text-podium-dark font-uncut">
-                Scroll to see who else was in the room, and if you want to see all the photos then{" "}
-                <a href="#" className="text-[#d66e33] hover:text-[#d66e33]/80">click here</a>.
+                ✨ Upcoming Experience ✨{"\n"}
+                Join us for our Mid Year Reset retreat in Bali with Coach Charlotte!{"\n"}
+                🌴 May 29th - June 1st, 2025{"\n"}
+                🌺 <a href="#" className="text-[#d66e33] hover:text-[#d66e33]/80">Know More</a>
               </p>
             </>
           )}
