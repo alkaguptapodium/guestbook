@@ -16,12 +16,6 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
         location=""
         imageUrl={event?.image_url || ""}
       />
-      <div className="container max-w-4xl mx-auto px-4 py-8">
-        <div 
-          className="prose prose-sm max-w-none"
-          dangerouslySetInnerHTML={{ __html: event?.description || "" }}
-        />
-      </div>
     </>
   );
 };
