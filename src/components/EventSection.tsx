@@ -20,7 +20,7 @@ interface EventSectionProps {
 export const EventSection = ({ title, icon, attendees }: EventSectionProps) => {
   return (
     <section>
-      <div className="flex items-center gap-2 mb-8 justify-center">
+      <div className="flex items-center gap-2 mb-8">
         {icon === "host" ? (
           <Crown className="w-6 h-6 text-podium-gold" />
         ) : (
@@ -28,7 +28,7 @@ export const EventSection = ({ title, icon, attendees }: EventSectionProps) => {
         )}
         <h2 className="font-uncut text-3xl font-semibold uppercase">{title}</h2>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
         {attendees.map((attendee) => (
           <AttendeeCard
             key={attendee.id}
