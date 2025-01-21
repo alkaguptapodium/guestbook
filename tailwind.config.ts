@@ -61,7 +61,7 @@ export default {
       fontFamily: {
         playfair: ["Playfair Display", "serif"],
         inter: ["Inter", "sans-serif"],
-        uncut: ["Uncut Sans", "sans-serif"],
+        uncut: ["Ovo", "serif"], // Changed from Uncut Sans to Ovo
       },
       keyframes: {
         fadeIn: {
