@@ -23,7 +23,7 @@ export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderP
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="relative z-20 container h-full flex flex-col justify-center items-center text-white text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-['uncut-sans'] font-normal mb-4 animate-fadeIn uppercase">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-uncut mb-4 animate-fadeIn uppercase">
             {title}
           </h1>
           <div className="flex items-center gap-2 text-lg animate-fadeIn">
