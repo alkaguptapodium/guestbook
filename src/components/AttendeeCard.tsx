@@ -10,7 +10,7 @@ interface AttendeeCardProps {
   linkedIn?: string;
   email?: string;
   isMemberView: boolean;
-  type?: string; // Added this line to accept the type prop
+  type?: string;
 }
 
 const getInitials = (name: string): string => {
@@ -30,10 +30,10 @@ export const AttendeeCard = ({
   linkedIn,
   email,
   isMemberView,
-  type, // Added this to destructure the type prop
+  type,
 }: AttendeeCardProps) => {
-  console.log('Rendering AttendeeCard with imageUrl:', imageUrl); // Debug log
-  console.log('Rendering AttendeeCard with type:', type); // Added debug log for type
+  console.log('Rendering AttendeeCard with imageUrl:', imageUrl);
+  console.log('Rendering AttendeeCard with type:', type);
 
   return (
     <Card className="overflow-hidden animate-fadeIn">
@@ -44,7 +44,7 @@ export const AttendeeCard = ({
             alt={`Profile photo of ${name}`}
             className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
             onError={(e) => {
-              console.log('Image failed to load:', imageUrl); // Debug log
+              console.log('Image failed to load:', imageUrl);
               e.currentTarget.style.display = 'none';
             }}
           />
@@ -55,7 +55,7 @@ export const AttendeeCard = ({
       </div>
       <div className="p-4 space-y-2">
         <div className="flex items-center justify-between">
-          <h3 className="font-playfair text-xl font-semibold">{name}</h3>
+          <h3 className="font-uncut text-xl uppercase">{name}</h3>
           {linkedIn && (
             <Button
               variant="ghost"
@@ -71,7 +71,7 @@ export const AttendeeCard = ({
             </Button>
           )}
         </div>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground font-ovo">
           {role} {company && `at ${company}`}
         </p>
       </div>
