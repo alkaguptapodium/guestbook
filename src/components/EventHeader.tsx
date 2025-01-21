@@ -34,9 +34,12 @@ export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderP
       </div>
       
       <div className="container mx-auto px-4 py-12 max-w-3xl">
-        <div className="space-y-6 text-left animate-fadeIn">
+        <div className="space-y-8 text-left animate-fadeIn">
           {description ? (
-            <div dangerouslySetInnerHTML={{ __html: description }} className="text-lg text-podium-dark [&_a]:text-[#d66e33] [&_a:hover]:text-[#d66e33]/80" />
+            <div 
+              dangerouslySetInnerHTML={{ __html: description }} 
+              className="text-lg text-podium-dark [&_a]:text-[#d66e33] [&_a:hover]:text-[#d66e33]/80 [&_p]:mb-8 last:[&_p]:mb-0" 
+            />
           ) : (
             <>
               <p className="text-lg text-podium-dark">
