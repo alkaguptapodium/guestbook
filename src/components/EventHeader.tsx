@@ -36,7 +36,7 @@ export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderP
       <div className="container mx-auto px-4 py-12 max-w-3xl">
         <div className="space-y-6 text-left animate-fadeIn">
           {description ? (
-            <div dangerouslySetInnerHTML={{ __html: description }} className="text-lg text-podium-dark" />
+            <div dangerouslySetInnerHTML={{ __html: description }} className="text-lg text-podium-dark [&_a]:text-[#d66e33] [&_a:hover]:text-[#d66e33]/80" />
           ) : (
             <>
               <p className="text-lg text-podium-dark">
@@ -49,7 +49,7 @@ export const EventHeader = ({ title, date, imageUrl, description }: EventHeaderP
               
               <p className="text-lg text-podium-dark">
                 Scroll to see who else was in the room, and if you want to see all the photos then{" "}
-                <a href="#" className="text-podium-gold hover:underline">click here</a>.
+                <a href="#" className="hover:underline">click here</a>.
               </p>
             </>
           )}
