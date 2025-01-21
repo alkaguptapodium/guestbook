@@ -23,13 +23,15 @@ const Index = () => {
         description={eventData.description}
       />
       
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="space-y-16 animate-fadeIn">
+      <main className="flex flex-col items-center justify-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+        <div className="w-full animate-fadeIn">
           <EventSection 
             title="Hosts" 
             icon="host" 
             attendees={hosts}
           />
+        </div>
+        <div className="w-full animate-fadeIn">
           <EventSection 
             title="Guests" 
             icon="guest" 
