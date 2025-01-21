@@ -130,9 +130,6 @@ const EventView = () => {
     );
   }
 
-  // Filter out the current event from past events
-  const pastEvents = allEvents?.filter(e => e.id !== event.id) || [];
-
   return (
     <div className="min-h-screen bg-[#fdfdf7]">
       <Navigation />
@@ -141,41 +138,6 @@ const EventView = () => {
         <div className="space-y-16 animate-fadeIn">
           <HostsSection hosts={attendees || []} />
           <GuestsSection guests={attendees || []} />
-          
-          {/* Past Events Section */}
-          <section className="mt-16">
-            <h2 className="text-3xl font-semibold mb-8 text-center">Past Events</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {pastEvents.map((pastEvent) => (
-                <Card 
-                  key={pastEvent.id} 
-                  className="cursor-pointer hover:shadow-lg transition-shadow"
-                  onClick={() => navigate(`/event/${pastEvent.slug}`)}
-                >
-                  <CardContent className="p-6">
-                    {pastEvent.image_url && (
-                      <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
-                        <img 
-                          src={pastEvent.image_url} 
-                          alt={pastEvent.name}
-                          className="object-cover w-full h-full"
-                        />
-                      </div>
-                    )}
-                    <h2 className="text-xl font-semibold mb-2">{pastEvent.name}</h2>
-                    <p className="text-sm text-gray-600 mb-2">
-                      {format(new Date(pastEvent.event_date), 'PPP')}
-                    </p>
-                    {pastEvent.description && (
-                      <p className="text-sm text-gray-600 line-clamp-2">
-                        {pastEvent.description.replace(/<[^>]*>/g, '')}
-                      </p>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </section>
         </div>
       </main>
     </div>
