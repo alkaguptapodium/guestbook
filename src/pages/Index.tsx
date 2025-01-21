@@ -23,7 +23,7 @@ const Index = () => {
         description={eventData.description}
       />
       
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-7xl">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-5xl">
         <div className="space-y-24 flex flex-col items-center">
           <EventSection 
             title="Hosts" 
