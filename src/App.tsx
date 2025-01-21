@@ -10,6 +10,15 @@ import EventView from "./pages/EventView";
 const queryClient = new QueryClient();
 
 function App() {
+  // Function to handle case-insensitive routing
+  const handleCreateEventRedirect = () => {
+    const path = window.location.pathname.toLowerCase();
+    if (path === '/create-event' || path === '/create-event/') {
+      return <CreateEvent />;
+    }
+    return <Navigate to="/create-event" replace />;
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -19,7 +28,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/create-event" replace />} />
             <Route path="/home" element={<Index />} />
-            <Route path="/create-event" element={<CreateEvent />} />
+            <Route path="/create-event" element={handleCreateEventRedirect()} />
+            <Route path="/CreaTE-EVENT" element={handleCreateEventRedirect()} />
             <Route path="/event/:slug" element={<EventView />} />
           </Routes>
         </BrowserRouter>
