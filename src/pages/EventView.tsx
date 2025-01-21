@@ -20,10 +20,10 @@ const EventView = () => {
         .from('events')
         .select('*')
         .eq('slug', slug)
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
-      return data as Event;
+      return data as Event | null;
     },
   });
 
@@ -51,16 +51,15 @@ const EventView = () => {
 
   if (!event) {
     return (
-      <div className="min-h-screen bg-[#fdfdf7] flex items-center justify-center">
-        <div className="text-2xl text-podium-dark">Event not found</div>
+      <div className="min-h-screen bg-[#fdfdf7]">
+        <Navigation />
+        <div className="container mx-auto px-4 py-16 text-center">
+          <h1 className="text-3xl font-semibold text-podium-dark mb-4">Event Not Found</h1>
+          <p className="text-lg text-podium-dark/80">The event you're looking for doesn't exist or has been removed.</p>
+        </div>
       </div>
     );
   }
-
-  // Pass all attendees to both sections and let them handle their own filtering
-  console.log('All attendees:', attendees);
-  console.log('Hosts:', attendees?.filter(a => a.type === 'Host'));
-  console.log('Guests:', attendees?.filter(a => a.type === 'Guest'));
 
   return (
     <div className="min-h-screen bg-[#fdfdf7]">
