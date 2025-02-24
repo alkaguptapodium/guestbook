@@ -29,7 +29,7 @@ export const GuestsSection = memo(({ guests }: GuestsSectionProps) => {
         <p className="text-muted-foreground text-center py-4">No guests found for this event</p>
       ) : (
         <div className="max-w-5xl mx-auto px-4">
-          <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 ${sortedGuests.length === 2 ? 'md:px-[25%]' : ''}`}>
+          <div className="flex flex-wrap justify-center gap-6">
             {sortedGuests.map((guest) => (
               <AttendeeCard
                 key={guest.id}
