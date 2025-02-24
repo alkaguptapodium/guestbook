@@ -34,7 +34,7 @@ export const AttendeeCard = ({
   type,
 }: AttendeeCardProps) => {
   return (
-    <Card className="w-[240px] overflow-hidden animate-fadeIn">
+    <Card className="w-[calc(50%-0.75rem)] sm:w-[240px] overflow-hidden animate-fadeIn">
       <div className="aspect-square overflow-hidden bg-gray-100">
         <Avatar className="w-full h-full rounded-none">
           <AvatarImage
@@ -53,7 +53,7 @@ export const AttendeeCard = ({
       </div>
       <div className="p-4 space-y-2">
         <div className="flex items-center justify-between">
-          <h3 className="font-uncut text-xl uppercase">{name}</h3>
+          <h3 className="font-uncut text-base sm:text-xl uppercase">{name}</h3>
           {linkedIn && (
             <Button
               variant="ghost"

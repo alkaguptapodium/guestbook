@@ -29,7 +29,7 @@ export const HostsSection = memo(({ hosts }: HostsSectionProps) => {
         <p className="text-muted-foreground text-center py-4">No hosts found for this event</p>
       ) : (
         <div className="max-w-5xl mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-6">
             {sortedHosts.map((host) => (
               <AttendeeCard
                 key={host.id}
