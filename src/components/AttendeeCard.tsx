@@ -1,3 +1,4 @@
+
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -32,11 +33,8 @@ export const AttendeeCard = ({
   isMemberView,
   type,
 }: AttendeeCardProps) => {
-  console.log('Rendering AttendeeCard with imageUrl:', imageUrl);
-  console.log('Rendering AttendeeCard with type:', type);
-
   return (
-    <Card className="overflow-hidden animate-fadeIn">
+    <Card className="w-[240px] overflow-hidden animate-fadeIn">
       <div className="aspect-square overflow-hidden bg-gray-100">
         <Avatar className="w-full h-full rounded-none">
           <AvatarImage
