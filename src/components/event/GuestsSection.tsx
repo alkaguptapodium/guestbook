@@ -28,8 +28,8 @@ export const GuestsSection = memo(({ guests }: GuestsSectionProps) => {
       {sortedGuests.length === 0 ? (
         <p className="text-muted-foreground text-center py-4">No guests found for this event</p>
       ) : (
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-6">
+        <div className="max-w-5xl mx-auto px-2 sm:px-4">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-6 mx-auto" style={{ maxWidth: "calc(100% - 1rem)" }}>
             {sortedGuests.map((guest) => (
               <AttendeeCard
                 key={guest.id}

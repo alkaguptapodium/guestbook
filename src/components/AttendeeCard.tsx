@@ -34,7 +34,7 @@ export const AttendeeCard = ({
   type,
 }: AttendeeCardProps) => {
   return (
-    <Card className="w-[calc(50%-0.75rem)] sm:w-[240px] overflow-hidden animate-fadeIn">
+    <Card className="w-[47%] sm:w-[240px] overflow-hidden animate-fadeIn">
       <div className="aspect-square overflow-hidden bg-gray-100">
         <Avatar className="w-full h-full rounded-none">
           <AvatarImage
