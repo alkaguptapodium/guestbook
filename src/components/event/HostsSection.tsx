@@ -28,19 +28,21 @@ export const HostsSection = memo(({ hosts }: HostsSectionProps) => {
       {sortedHosts.length === 0 ? (
         <p className="text-muted-foreground text-center py-4">No hosts found for this event</p>
       ) : (
-        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 justify-items-center">
-          {sortedHosts.map((host) => (
-            <AttendeeCard
-              key={host.id}
-              name={host.name}
-              role={host.headline || "Host"}
-              company=""
-              imageUrl={host.image_url || "/placeholder.svg"}
-              linkedIn={host.linkedin_url}
-              isMemberView={false}
-              type={host.type}
-            />
-          ))}
+        <div className="max-w-5xl mx-auto px-4">
+          <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 ${sortedHosts.length === 2 ? 'md:px-[25%]' : ''}`}>
+            {sortedHosts.map((host) => (
+              <AttendeeCard
+                key={host.id}
+                name={host.name}
+                role={host.headline || "Host"}
+                company=""
+                imageUrl={host.image_url || "/placeholder.svg"}
+                linkedIn={host.linkedin_url}
+                isMemberView={false}
+                type={host.type}
+              />
+            ))}
+          </div>
         </div>
       )}
     </section>

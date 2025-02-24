@@ -28,19 +28,21 @@ export const GuestsSection = memo(({ guests }: GuestsSectionProps) => {
       {sortedGuests.length === 0 ? (
         <p className="text-muted-foreground text-center py-4">No guests found for this event</p>
       ) : (
-        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 justify-items-center">
-          {sortedGuests.map((guest) => (
-            <AttendeeCard
-              key={guest.id}
-              name={guest.name}
-              role={guest.headline || "Guest"}
-              company=""
-              imageUrl={guest.image_url || "/placeholder.svg"}
-              linkedIn={guest.linkedin_url}
-              isMemberView={false}
-              type={guest.type}
-            />
-          ))}
+        <div className="max-w-5xl mx-auto px-4">
+          <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 ${sortedGuests.length === 2 ? 'md:px-[25%]' : ''}`}>
+            {sortedGuests.map((guest) => (
+              <AttendeeCard
+                key={guest.id}
+                name={guest.name}
+                role={guest.headline || "Guest"}
+                company=""
+                imageUrl={guest.image_url || "/placeholder.svg"}
+                linkedIn={guest.linkedin_url}
+                isMemberView={false}
+                type={guest.type}
+              />
+            ))}
+          </div>
         </div>
       )}
     </section>
