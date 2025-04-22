@@ -1,3 +1,4 @@
+
 import { EventHeader } from "@/components/EventHeader";
 import { Navigation } from "@/components/Navigation";
 import { EventSection } from "@/components/EventSection";
@@ -25,11 +26,13 @@ const Index = () => {
       
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="space-y-16 animate-fadeIn">
-          <EventSection 
-            title="Hosts" 
-            icon="host" 
-            attendees={hosts}
-          />
+          {hosts.length > 0 && (
+            <EventSection 
+              title="Hosts" 
+              icon="host" 
+              attendees={hosts}
+            />
+          )}
           <EventSection 
             title="Guests" 
             icon="guest" 
